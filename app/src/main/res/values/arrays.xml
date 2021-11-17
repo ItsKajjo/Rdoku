@@ -1,0 +1,13 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="dark_mode_entries">
+        <item>Follow system</item>
+        <item>Enable dark mode</item>
+        <item>Enable light mode</item>
+    </string-array>
+    <string-array name="dark_mode_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+</resources>

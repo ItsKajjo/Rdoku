@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">RDOKU</string>
+    <!-- Main Menu -->
+    <string name="main_menu_logo">Rdoku</string>
+    <string name="btn_new_game">New Game</string>
+    <string-array name="game_difficulties">
+        <item>Easy</item>
+        <item>Moderate</item>
+        <item>Hard</item>
+    </string-array>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="appearance_header">Appearance</string>
+
+    <!-- Messages Preferences -->
+    <string name="dark_mode_title">Enable dark mode</string>
+
+</resources>

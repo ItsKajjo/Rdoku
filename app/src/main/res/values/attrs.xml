@@ -2,5 +2,7 @@
 <resources>
     <declare-styleable name="SudokuBoardView">
         <attr name="boardColor" format="color"/>
+        <attr name="cellFillColor" format="color"/>
+        <attr name="highlightColor" format="color"/>
     </declare-styleable>
 </resources>

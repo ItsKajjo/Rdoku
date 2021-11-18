@@ -31,7 +31,9 @@
     </style>
 
     <style name="SudokuBoard" parent="Theme.AppCompat.DayNight">
-        <item name="boardColor">@color/clouds</item>
+        <item name="boardColor">@color/cold_silver</item>
+        <item name="highlightColor">@color/night_blue</item>
+        <item name="cellFillColor">@color/white</item>
     </style>
 
     <style name="Theme.RDOKU.ActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">

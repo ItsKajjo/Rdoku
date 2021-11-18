@@ -12,4 +12,7 @@
     <color name="dark_gray">#252525</color>
     <color name="midnight_blue">#2c3e50</color>
     <color name="pensive_gray">#dcdde1</color>
+    <color name="night_blue">#162D3E</color>
+    <color name="light_vanilla">#FEF5ED</color>
+    <color name="cold_silver">#E1E5EA</color>
 </resources>

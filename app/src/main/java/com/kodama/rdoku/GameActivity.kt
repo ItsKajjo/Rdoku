@@ -27,7 +27,6 @@ class GameActivity : AppCompatActivity(){
         if(bundle != null){
             game_difficulty = bundle.getInt("game_difficulty")
         }
-        TODO("Not implemented yet")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

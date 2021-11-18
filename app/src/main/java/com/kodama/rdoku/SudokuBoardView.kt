@@ -4,24 +4,12 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.*
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.view.View
-import kotlin.math.min
 
-class SudokuBoardView : View {
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){
-        if(context != null && attrs != null){
-            var ar: TypedArray = context.theme
-                .obtainStyledAttributes(attrs, R.styleable.SudokuBoardView,
-                    0, 0)
-
-            boardColor = ar.getInt(R.styleable.SudokuBoardView_board_color, 0)
-        }
-        boardColorPaint = Paint()
-    }
+class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     var boardColor: Int = 0
-    var boardColorPaint: Paint
+    private val boardColorPaint: Paint
     private var cellSize: Int = 0
 
 
@@ -30,10 +18,21 @@ class SudokuBoardView : View {
 
         val width = MeasureSpec.getSize(widthMeasureSpec)
         val height = MeasureSpec.getSize(heightMeasureSpec)
-        var dimension: Int = Math.min(width, height)
+        val dimension: Int = Math.min(width, height)
         cellSize = dimension / 9
         setMeasuredDimension(dimension, dimension)
 
+    }
+
+    init {
+        if(context != null && attrs != null){
+            val themeArray: TypedArray = context.theme
+                .obtainStyledAttributes(attrs, R.styleable.SudokuBoardView,
+                    0, 0)
+
+            boardColor = themeArray.getInt(R.styleable.SudokuBoardView_boardColor, 0)
+        }
+        boardColorPaint = Paint()
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -75,7 +74,7 @@ class SudokuBoardView : View {
 
     private fun drawThickLine(){
         boardColorPaint.style = Paint.Style.STROKE
-        boardColorPaint.strokeWidth = 10f
+        boardColorPaint.strokeWidth = 8f
         boardColorPaint.color = boardColor
     }
     private fun drawThinLine(){

@@ -11,14 +11,20 @@ import kotlin.math.ceil
 
 class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    var boardColor = 0
+    private var boardColor = 0
     private var cellFillColor = 0
     private var highlightColor = 0
     private var cellSize = 0
 
-    private val boardColorPaint: Paint
-    private val cellFillColorPaint: Paint
-    private val highlightColorPaint: Paint
+    private val boardColorPaint: Paint = Paint()
+    private val cellFillColorPaint: Paint = Paint()
+    private val highlightColorPaint: Paint = Paint()
+    private val numberPaint: Paint = Paint()
+
+    private var numberColor = 0
+    private var collisionNumberColor: Int = 0
+
+    private val numberPaintBounds: Rect = Rect()
 
     private val sudokuGame = SudokuGame()
 
@@ -31,10 +37,9 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
             boardColor = themeArray.getInt(R.styleable.SudokuBoardView_boardColor, 0)
             cellFillColor = themeArray.getInt(R.styleable.SudokuBoardView_cellFillColor, 0)
             highlightColor = themeArray.getInt(R.styleable.SudokuBoardView_highlightColor, 0)
+            numberColor = themeArray.getInt(R.styleable.SudokuBoardView_numberColor, 0)
+            collisionNumberColor = themeArray.getInt(R.styleable.SudokuBoardView_collisionNumberColor, 0)
         }
-        boardColorPaint = Paint()
-        cellFillColorPaint = Paint()
-        highlightColorPaint = Paint()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -64,9 +69,15 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
         highlightColorPaint.color = highlightColor
         highlightColorPaint.isAntiAlias = true
 
+        numberPaint.style = Paint.Style.FILL
+        numberPaint.color = numberColor
+        numberPaint.isAntiAlias = true
+        numberPaint.textSize = cellSize.toFloat()
+
         colorCell(canvas, sudokuGame.getSelectedRow(), sudokuGame.getSelectedCol())
         canvas?.drawRect(0f,0f, measuredWidth.toFloat(), measuredHeight.toFloat(), boardColorPaint)
         drawBoard(canvas)
+        drawText(canvas)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -89,8 +100,27 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
         return isValid
     }
 
+    private fun drawText(canvas: Canvas?){
+
+        for(row: Int in 0 until 9){
+            for(col: Int in 0 until 9){
+                if(sudokuGame.getBoard()[row][col].value != 0){
+                    val text: String = sudokuGame.getBoard()[row][col].value.toString()
+
+                    numberPaint.getTextBounds(text, 0, text.length, numberPaintBounds)
+                    val width: Float = numberPaint.measureText(text)
+                    val height: Float = numberPaintBounds.height().toFloat()
+
+
+                    canvas?.drawText(text, (col * cellSize) + ((cellSize - width) / 2f),
+                        (row * cellSize + cellSize) - ((cellSize - height) / 2f), numberPaint)
+                }
+            }
+        }
+    }
     private fun colorCell(canvas: Canvas?, row: Int, col: Int){
-        if(canvas != null && sudokuGame.getSelectedRow() != -1 && sudokuGame.getSelectedCol() != -1){
+        if(canvas != null
+            && sudokuGame.getSelectedRow() != -1 && sudokuGame.getSelectedCol() != -1){
             // Paint column
             canvas.drawRect((col - 1f) * cellSize, 0f,
                 (col * cellSize).toFloat(), (cellSize * 9).toFloat(), highlightColorPaint)

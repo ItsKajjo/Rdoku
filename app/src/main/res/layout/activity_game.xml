@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/gameKeyboardButtonStyle"
+            android:onClick="onBtnNumberClick"
             android:text="@string/one" />
 
         <Button
@@ -38,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/gameKeyboardButtonStyle"
+            android:onClick="onBtnNumberClick"
             android:text="@string/two" />
 
         <Button
@@ -46,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/gameKeyboardButtonStyle"
+            android:onClick="onBtnNumberClick"
             android:text="@string/three" />
 
         <Button
@@ -54,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/gameKeyboardButtonStyle"
+            android:onClick="onBtnNumberClick"
             android:text="@string/four" />
 
         <Button
@@ -62,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/gameKeyboardButtonStyle"
+            android:onClick="onBtnNumberClick"
             android:text="@string/five" />
 
         <Button
@@ -70,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/gameKeyboardButtonStyle"
+            android:onClick="onBtnNumberClick"
             android:text="@string/six" />
 
         <Button
@@ -78,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/gameKeyboardButtonStyle"
+            android:onClick="onBtnNumberClick"
             android:text="@string/seven" />
 
         <Button
@@ -86,6 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/gameKeyboardButtonStyle"
+            android:onClick="onBtnNumberClick"
             android:text="@string/eight" />
 
         <Button
@@ -94,6 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/gameKeyboardButtonStyle"
+            android:onClick="onBtnNumberClick"
             android:text="@string/nine" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

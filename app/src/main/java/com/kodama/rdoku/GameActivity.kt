@@ -1,19 +1,20 @@
 package com.kodama.rdoku
 
+import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Debug
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.Button
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
+import android.os.SystemClock
+import android.view.*
+import android.widget.*
+import androidx.preference.PreferenceManager
+import com.kodama.rdoku.customview.SudokuBoardView
+import com.kodama.rdoku.gamelogic.BestTimeManager
+import com.kodama.rdoku.gamelogic.GameDifficulty
+import com.kodama.rdoku.gamelogic.SudokuGame
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 
 class GameActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,17 +24,27 @@ class GameActivity : AppCompatActivity(){
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        var game_difficulty = 1
+
         val bundle: Bundle? = intent.extras
+
         if(bundle != null){
-            game_difficulty = bundle.getInt("game_difficulty")
+            gameDifficulty = bundle.getSerializable("game_difficulty") as GameDifficulty
+            cmTimer = findViewById(R.id.cmTimer)
+            startGame()
         }
 
         sudokuBoard = findViewById(R.id.sudokuBoard)
+
+        initPrefs()
     }
 
-    val sudokuGame = SudokuGame()
-    lateinit var sudokuBoard: SudokuBoardView
+    lateinit var cmTimer: Chronometer
+
+    private var job = Job()
+    private val sudokuGame = SudokuGame(this)
+    private lateinit var sudokuBoard: SudokuBoardView
+    private lateinit var gameDifficulty: GameDifficulty
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.game_menu, menu)
@@ -42,17 +53,14 @@ class GameActivity : AppCompatActivity(){
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
-            R.id.settings_menu -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
+            R.id.restart_menu ->{
+                startGame()
                 true
             }
-            R.id.restart_menu ->{
-                TODO("Restart method is not exists yet")
-            }
-            R.id.about_menu ->
-            {
-                TODO("About Activity is not exists yet")
+            R.id.about_menu -> {
+                val intent = Intent(this, AboutActivity::class.java)
+                startActivity(intent)
+                true
             }
             else -> {
                 super.onOptionsItemSelected(item)
@@ -70,7 +78,40 @@ class GameActivity : AppCompatActivity(){
                 super.onContextItemSelected(item)
             }
         }
+    }
 
+    private fun startGame(){
+        when(gameDifficulty){
+            GameDifficulty.Easy -> {
+                GlobalScope.async{
+                    sudokuGame.generateBoard(32)
+                }
+                findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_easy)
+            }
+
+            GameDifficulty.Moderate -> {
+                GlobalScope.async{
+                    sudokuGame.generateBoard(27)
+                }
+                findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_moderate)
+            }
+
+            GameDifficulty.Hard ->{
+                sudokuGame.setHardBoard()
+                findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_hard)
+            }
+        }
+
+        cmTimer.base = SystemClock.elapsedRealtime()
+        cmTimer.start()
+
+        enableGameKeyboard(true)
+    }
+
+    override fun onDestroy() {
+        cmTimer.stop()
+        job.cancel()
+        super.onDestroy()
     }
 
     fun onBtnNumberClick(view: View){
@@ -87,6 +128,156 @@ class GameActivity : AppCompatActivity(){
             else -> 0
         }
         sudokuGame.setNumberBoard(number)
+
+        checkForComplete()
+
+        hideFullyUsedNumber()
         sudokuBoard.invalidate()
+    }
+
+    private fun completeDialog(cmTimer: Chronometer){
+        cmTimer.stop()
+
+        // get min and sec from chronometer
+        val seconds = (SystemClock.elapsedRealtime() - cmTimer.base) / 1000 % 60
+        val minutes = (SystemClock.elapsedRealtime() - cmTimer.base) / 1000 / 60 % 60
+        val sec = seconds.toString().padStart(2, '0')
+        val min = minutes.toString().padStart(2, '0')
+
+        val dialog = Dialog(this)
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.layout_sudoku_complete)
+
+        val sharedPreferences = getSharedPreferences("best_score", MODE_PRIVATE)
+        val bestTimeManager = BestTimeManager(this)
+        val bestScore = bestTimeManager.getBestTime(gameDifficulty)
+        val bestSeconds = bestScore.first
+        val bestMinutes = bestScore.second
+
+        if(minutes <= bestMinutes && seconds < bestSeconds){
+            bestTimeManager.saveBestTime(seconds, minutes, gameDifficulty)
+        }
+
+
+        val tvBestTime: TextView = dialog.findViewById(R.id.tvBestTime)
+        val tvTimeComplete: TextView = dialog.findViewById(R.id.tvTimeComplete)
+
+        dialog.findViewById<TextView>(R.id.tvDifficultyComplete).text = when(gameDifficulty){
+            GameDifficulty.Easy -> getString(R.string.difficulty_easy)
+            GameDifficulty.Moderate -> getString(R.string.difficulty_moderate)
+            GameDifficulty.Hard -> getString(R.string.difficulty_hard)
+        }
+
+
+        // Show time and best time only if timer is enabled
+        val appPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        dialog.setOnShowListener{
+            if(appPreferences.getBoolean("enable_timer", true)){
+                tvBestTime.text = getString(R.string.best_time_placeholder,
+                    bestScore.second.toString().padStart(2, '0'),
+                    bestScore.first.toString().padStart(2, '0'))
+
+                tvTimeComplete.text = getString(R.string.complete_time_placeholder, min, sec)
+            }
+            else{
+                tvBestTime.visibility = View.GONE
+                tvTimeComplete.visibility = View.GONE
+                dialog.findViewById<TextView>(R.id.tvBestTimeHeader).visibility = View.GONE
+                dialog.findViewById<TextView>(R.id.tvTimeCompleteHeader).visibility = View.GONE
+            }
+        }
+
+        val btnRestart = dialog.findViewById(R.id.btnCompleteRestart) as Button
+        btnRestart.setOnClickListener {
+            startGame()
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    private fun initPrefs(){
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+        if(!prefs.getBoolean("enable_timer", true)){
+            findViewById<LinearLayout>(R.id.linearLayoutTimer).visibility = View.GONE
+        }
+    }
+
+    fun onBtnEraseClick(view: View){
+        val row = SudokuGame.selectedRow - 1
+        val col = SudokuGame.selectedCol - 1
+        val num = SudokuGame.mainBoard[row][col].value
+
+        sudokuGame.eraseNumber()
+
+        hideFullyUsedNumber()
+        sudokuBoard.invalidate()
+    }
+
+    fun onBtnHintClick(view: View){
+        val row = SudokuGame.selectedRow - 1
+        val col = SudokuGame.selectedCol - 1
+
+        sudokuGame.useHint()
+
+        val num = SudokuGame.mainBoard[row][col].value
+        hideFullyUsedNumber()
+        checkForComplete()
+
+        sudokuBoard.invalidate()
+    }
+
+    fun onDbgBtnSolveClick(view: View){
+        sudokuGame.debugSolve()
+        enableGameKeyboard(false)
+        sudokuBoard.invalidate()
+    }
+
+    private fun checkForComplete(){
+        if(sudokuGame.checkForComplete()){
+            completeDialog(cmTimer)
+        }
+    }
+
+    private fun hideFullyUsedNumber(){
+        for(i in 1..9){
+            val button: Button = when(i){
+                1 -> findViewById(R.id.btnOne)
+                2 -> findViewById(R.id.btnTwo)
+                3 -> findViewById(R.id.btnThree)
+                4 -> findViewById(R.id.btnFour)
+                5 -> findViewById(R.id.btnFive)
+                6 -> findViewById(R.id.btnSix)
+                7 -> findViewById(R.id.btnSeven)
+                8 -> findViewById(R.id.btnEight)
+                9 -> findViewById(R.id.btnNine)
+                else -> return
+            }
+            if(sudokuGame.numberUsedNineTimes(i)){
+                button.visibility = View.INVISIBLE
+            }
+            else{
+                if(button.visibility == View.INVISIBLE){
+                    button.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    private fun enableGameKeyboard(isVisible: Boolean){
+        val visibility: Int = if(isVisible){
+            View.VISIBLE
+        } else{
+            View.INVISIBLE
+        }
+
+        val gameKeyboard = findViewById<LinearLayout>(R.id.gameKeyboard)
+        for(i in 0 until gameKeyboard.childCount){
+            val btn = gameKeyboard.getChildAt(i) as Button
+            btn.visibility = visibility
+        }
     }
 }

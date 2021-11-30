@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="game_menu_settings">Настройки</string>
+    <string name="game_menu_about">Об игре</string>
+    <string name="action_menu_restart">Рестарт</string>
+    <string name="app_theme_title">Тема приложения</string>
+    <string name="game_rules_header">Правила</string>
+    <string name="game_rules_text">Каждый квадрат 3x3 может содержать только числа от 1 до 9 без повторений\n
+        Каждая колонка и строка может содержать только числа от 1 до 9 без повторений\n
+        Судоку решена когда в каждой колонке, строке и квадрате 3x3 содержатся все числа от 1 до 9 без повторений</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="appearance_header">Внешний вид</string>
+    <string name="about_header">О чем-то</string>
+    <string name="btn_new_game">Играть</string>
+    <string name="about_text">Это текст с информацией. Но информации как таковой тут и нет, писать то не очем.\n
+        Но вот мой GitHub</string>
+    <string name="difficulty_easy">Легко</string>
+    <string name="difficulty_moderate">Средне</string>
+    <string name="difficulty_hard">Сложно</string>
+    <string name="dark_mode_follow_system">Как в системе</string>
+    <string name="dark_mode_enable_dark">Включить темную тему</string>
+    <string name="dark_mode_enable_light">Включить светлую тему</string>
+    <string name="gameplay_header">Геймплей</string>
+    <string name="enable_timer_header">Включить таймер</string>
+    <string name="sudoku_complete_title">Судоку решена!</string>
+    <string name="sudoku_complete_difficulty">Сложность:</string>
+    <string name="sudoku_complete_time">Время:</string>
+    <string name="btnRestartComplete">Рестарт</string>
+    <string name="best_time">Лучшее время</string>
+    <string name="highlight_identical_numbers_header">Подсвечивать одинаковые числа</string>
+    <string name="highlight_identical_numbers_summary">При выборе клетки с числом, такие же числа подсвечиваются на поле</string>
+</resources>

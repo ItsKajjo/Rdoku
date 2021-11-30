@@ -27,7 +27,8 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginLeft="12dp"
-            app:srcCompat="@drawable/ic_info_24dp" />
+            app:srcCompat="@drawable/ic_info_24dp"
+            android:onClick="onAboutClick"/>
     </LinearLayout>
 
     <TextView

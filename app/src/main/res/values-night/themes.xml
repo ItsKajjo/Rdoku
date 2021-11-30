@@ -14,6 +14,22 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/clouds</item>
         <item name="tint">@color/pensive_gray</item>
+    </style>
+
+    <style name="Theme.RDOKU.ActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/midnight_blue</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/midnight_blue</item>
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/clouds</item>
+        <item name="tint">@color/pensive_gray</item>
 
     </style>
 
@@ -33,27 +49,11 @@
 
     <!-- Style of the Sudoku Board -->
     <style name="SudokuBoard" parent="Theme.AppCompat.DayNight">
-        <item name="boardColor">@color/cold_silver</item>
+        <item name="boardColor">#424242</item>
         <item name="highlightColor">@color/night_blue</item>
-        <item name="cellFillColor">@color/white</item>
-        <item name="numberColor">@color/pensive_gray</item>
+        <item name="cellFillColor">#24445c</item>
+        <item name="numberColor">#757579</item>
+        <item name="lockedNumColor">#a2a2a3</item>
         <item name="collisionNumberColor">@color/bright_red</item>
-    </style>
-
-    <style name="Theme.RDOKU.ActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/midnight_blue</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/midnight_blue</item>
-        <!-- Customize your theme here. -->
-        <item name="android:textColor">@color/clouds</item>
-        <item name="tint">@color/pensive_gray</item>
-
     </style>
 </resources>

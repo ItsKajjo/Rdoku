@@ -1,108 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
-    <com.kodama.rdoku.SudokuBoardView
+    <TextView
+        android:id="@+id/tvDifficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:padding="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/sudokuBoard"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/sudokuBoard"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp">
+
+        <Chronometer
+            android:id="@+id/cmTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/sudokuBoard"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="4dp"/>
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/cmTimer"
+            app:layout_constraintEnd_toStartOf="@+id/cmTimer"
+            app:srcCompat="@drawable/ic_clock_black_24dp"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+    <com.kodama.rdoku.customview.SudokuBoardView
         android:id="@+id/sudokuBoard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/SudokuBoard"
-        custom:layout_constraintBottom_toBottomOf="parent"
-        custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintStart_toStartOf="parent"
-        custom:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4"/>
 
     <LinearLayout
+        android:id="@+id/gameKeyboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="12dp"
-        custom:layout_constraintTop_toBottomOf="@+id/sudokuBoard">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sudokuBoard">
 
         <Button
             android:id="@+id/btnOne"
+            style="@style/gameKeyboardButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/gameKeyboardButtonStyle"
             android:onClick="onBtnNumberClick"
             android:text="@string/one" />
 
         <Button
             android:id="@+id/btnTwo"
+            style="@style/gameKeyboardButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/gameKeyboardButtonStyle"
             android:onClick="onBtnNumberClick"
             android:text="@string/two" />
 
         <Button
             android:id="@+id/btnThree"
+            style="@style/gameKeyboardButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/gameKeyboardButtonStyle"
             android:onClick="onBtnNumberClick"
             android:text="@string/three" />
 
         <Button
             android:id="@+id/btnFour"
+            style="@style/gameKeyboardButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/gameKeyboardButtonStyle"
             android:onClick="onBtnNumberClick"
             android:text="@string/four" />
 
         <Button
             android:id="@+id/btnFive"
+            style="@style/gameKeyboardButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/gameKeyboardButtonStyle"
             android:onClick="onBtnNumberClick"
             android:text="@string/five" />
 
         <Button
             android:id="@+id/btnSix"
+            style="@style/gameKeyboardButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/gameKeyboardButtonStyle"
             android:onClick="onBtnNumberClick"
             android:text="@string/six" />
 
         <Button
             android:id="@+id/btnSeven"
+            style="@style/gameKeyboardButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/gameKeyboardButtonStyle"
             android:onClick="onBtnNumberClick"
             android:text="@string/seven" />
 
         <Button
             android:id="@+id/btnEight"
+            style="@style/gameKeyboardButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/gameKeyboardButtonStyle"
             android:onClick="onBtnNumberClick"
             android:text="@string/eight" />
 
         <Button
             android:id="@+id/btnNine"
+            style="@style/gameKeyboardButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/gameKeyboardButtonStyle"
             android:onClick="onBtnNumberClick"
             android:text="@string/nine" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/gameKeyboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnHint"
+            style="@style/gameKeyboardButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_hint_24dp"
+            android:onClick="onBtnHintClick"/>
+
+        <ImageButton
+            android:id="@+id/btnErase"
+            style="@style/gameKeyboardButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_clear_24dp"
+            android:onClick="onBtnEraseClick"/>
+
+        <Button
+            android:id="@+id/dbgBtnSolve"
+            style="@style/gameKeyboardButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SOLVE"
+            android:onClick="onDbgBtnSolveClick"/>
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

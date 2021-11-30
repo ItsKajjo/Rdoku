@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvCompleteTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comfortaa_regular"
+            android:text="@string/sudoku_complete_title"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDifficultyCompleteHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textSize="16sp"
+            android:text="@string/sudoku_complete_difficulty"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCompleteTitle" />
+
+        <TextView
+            android:id="@+id/tvDifficultyComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDifficultyCompleteHeader"
+            app:layout_constraintStart_toEndOf="@+id/tvDifficultyCompleteHeader"
+            android:layout_marginStart="24dp"/>
+
+        <TextView
+            android:id="@+id/tvTimeComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTimeCompleteHeader"
+            app:layout_constraintStart_toStartOf="@+id/tvDifficultyComplete" />
+
+        <TextView
+            android:id="@+id/tvTimeCompleteHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textSize="16sp"
+            android:text="@string/sudoku_complete_time"
+            app:layout_constraintStart_toStartOf="@+id/tvDifficultyCompleteHeader"
+            app:layout_constraintTop_toBottomOf="@+id/tvDifficultyCompleteHeader"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tvBestTimeHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comfortaa_regular"
+            android:text="@string/best_time"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvTimeCompleteHeader"
+            app:layout_constraintTop_toBottomOf="@+id/tvTimeCompleteHeader"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tvBestTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvBestTimeHeader"
+            app:layout_constraintStart_toStartOf="@+id/tvTimeComplete" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBestTimeHeader"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/btnCompleteRestart"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnRestartComplete" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

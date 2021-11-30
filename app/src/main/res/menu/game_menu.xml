@@ -5,11 +5,6 @@
         android:title="@string/action_menu_restart"
         android:icon="@drawable/ic_restart_24dp"/>
     <item
-        android:id="@+id/settings_menu"
-        android:title="@string/game_menu_settings"
-        android:icon="@drawable/ic_settings_24dp"/>
-
-    <item
         android:id="@+id/about_menu"
         android:title="@string/game_menu_about"
         android:icon="@drawable/ic_info_24dp"/>

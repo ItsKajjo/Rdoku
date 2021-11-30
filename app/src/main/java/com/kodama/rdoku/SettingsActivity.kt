@@ -19,6 +19,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                 .replace(R.id.settings, SettingsFragment())
                 .commit()
         }
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this)
@@ -31,7 +32,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if(key == "dark_mode"){
+        if(key == "app_theme"){
             val prefs = sharedPreferences?.getString(key, "1")
 
             when(prefs?.toInt()){

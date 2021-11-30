@@ -5,6 +5,7 @@
         <attr name="cellFillColor" format="color"/>
         <attr name="highlightColor" format="color"/>
         <attr name="numberColor" format="color"/>
+        <attr name="lockedNumColor" format="color"/>
         <attr name="collisionNumberColor" format="color"/>
     </declare-styleable>
 </resources>

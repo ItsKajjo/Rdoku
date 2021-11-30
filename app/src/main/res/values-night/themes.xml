@@ -49,11 +49,11 @@
 
     <!-- Style of the Sudoku Board -->
     <style name="SudokuBoard" parent="Theme.AppCompat.DayNight">
-        <item name="boardColor">#424242</item>
+        <item name="boardColor">@color/not_really_dark_gray</item>
         <item name="highlightColor">@color/night_blue</item>
-        <item name="cellFillColor">#24445c</item>
-        <item name="numberColor">#757579</item>
-        <item name="lockedNumColor">#a2a2a3</item>
+        <item name="cellFillColor">@color/deep_sea_blue</item>
+        <item name="numberColor">@color/dull_gray</item>
+        <item name="lockedNumColor">@color/light_gray</item>
         <item name="collisionNumberColor">@color/bright_red</item>
     </style>
 </resources>

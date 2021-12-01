@@ -1,5 +1,7 @@
 package com.kodama.rdoku.gamelogic
 
+import com.kodama.rdoku.model.BoardRate
+import com.kodama.rdoku.model.SudokuCell
 import kotlin.random.Random
 
 class SudokuGenSolve{
@@ -242,7 +244,7 @@ class SudokuGenSolve{
         }
         return true
     }
-    private fun testUniqueness():BoardRate{
+    private fun testUniqueness(): BoardRate {
         var xp: Int = 0
         var yp: Int = 0
         var mp: Array<Int>? = null

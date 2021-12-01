@@ -3,6 +3,7 @@ package com.kodama.rdoku.gamelogic
 import android.content.Context
 import android.util.Log
 import com.kodama.rdoku.R
+import com.kodama.rdoku.model.SudokuCell
 import kotlin.random.Random
 import kotlin.system.measureTimeMillis
 

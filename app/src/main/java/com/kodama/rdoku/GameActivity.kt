@@ -150,16 +150,21 @@ class GameActivity : AppCompatActivity(){
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.layout_sudoku_complete)
 
-        val sharedPreferences = getSharedPreferences("best_score", MODE_PRIVATE)
-        val bestTimeManager = BestTimeManager(this)
-        val bestScore = bestTimeManager.getBestTime(gameDifficulty)
-        val bestSeconds = bestScore.first
-        val bestMinutes = bestScore.second
 
-        if(minutes <= bestMinutes && seconds < bestSeconds){
+        val bestTimeManager = BestTimeManager(this)
+
+        var bestTime = bestTimeManager.getBestTime(gameDifficulty)
+        var bestSeconds = bestTime.first
+        var bestMinutes = bestTime.second
+
+        if(minutes <= bestMinutes && seconds < bestSeconds || bestMinutes == 0L && bestSeconds == 0L){
             bestTimeManager.saveBestTime(seconds, minutes, gameDifficulty)
         }
 
+
+        bestTime = bestTimeManager.getBestTime(gameDifficulty)
+        bestSeconds = bestTime.first
+        bestMinutes = bestTime.second
 
         val tvBestTime: TextView = dialog.findViewById(R.id.tvBestTime)
         val tvTimeComplete: TextView = dialog.findViewById(R.id.tvTimeComplete)
@@ -173,11 +178,12 @@ class GameActivity : AppCompatActivity(){
 
         // Show time and best time only if timer is enabled
         val appPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
         dialog.setOnShowListener{
             if(appPreferences.getBoolean("enable_timer", true)){
                 tvBestTime.text = getString(R.string.best_time_placeholder,
-                    bestScore.second.toString().padStart(2, '0'),
-                    bestScore.first.toString().padStart(2, '0'))
+                    bestTime.second.toString().padStart(2, '0'),
+                    bestTime.first.toString().padStart(2, '0'))
 
                 tvTimeComplete.text = getString(R.string.complete_time_placeholder, min, sec)
             }

@@ -1,4 +1,4 @@
-package com.kodama.rdoku.gamelogic
+package com.kodama.rdoku.model
 
 class SudokuCell(value: Int, locked: Boolean = false, wrong: Boolean = false) {
     var value: Int = value

@@ -1,6 +1,6 @@
 package com.kodama.rdoku
 
-import com.kodama.rdoku.gamelogic.SudokuCell
+import com.kodama.rdoku.model.SudokuCell
 import com.kodama.rdoku.gamelogic.SudokuGenSolve
 import org.junit.Assert
 import org.junit.Test

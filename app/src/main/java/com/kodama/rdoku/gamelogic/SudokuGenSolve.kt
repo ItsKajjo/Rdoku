@@ -195,7 +195,6 @@ class SudokuGenSolve{
         return Pair(false, gameBoard)
     }
 
-
     private fun gen(spots: Int):Boolean{
         for(i: Int in 0 until spots){
             var xRand: Int

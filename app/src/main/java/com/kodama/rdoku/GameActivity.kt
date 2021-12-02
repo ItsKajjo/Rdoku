@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
 import android.widget.*
+import androidx.fragment.app.DialogFragment
 import androidx.preference.PreferenceManager
 import com.kodama.rdoku.customview.SudokuBoardView
 import com.kodama.rdoku.gamelogic.BestTimeManager
@@ -15,6 +16,9 @@ import com.kodama.rdoku.gamelogic.SudokuGame
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.io.Serializable
+import kotlin.random.Random
 
 class GameActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,18 +84,18 @@ class GameActivity : AppCompatActivity(){
         }
     }
 
-    private fun startGame(){
+    fun startGame(){
         when(gameDifficulty){
             GameDifficulty.Easy -> {
-                GlobalScope.async{
-                    sudokuGame.generateBoard(32)
+                GlobalScope.launch{
+                    sudokuGame.generateBoard(Random.nextInt(29, 34))
                 }
                 findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_easy)
             }
 
             GameDifficulty.Moderate -> {
-                GlobalScope.async{
-                    sudokuGame.generateBoard(27)
+                GlobalScope.launch{
+                    sudokuGame.generateBoard(Random.nextInt(26, 29))
                 }
                 findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_moderate)
             }
@@ -101,7 +105,6 @@ class GameActivity : AppCompatActivity(){
                 findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_hard)
             }
         }
-
         cmTimer.base = SystemClock.elapsedRealtime()
         cmTimer.start()
 
@@ -135,20 +138,16 @@ class GameActivity : AppCompatActivity(){
         sudokuBoard.invalidate()
     }
 
-    private fun completeDialog(cmTimer: Chronometer){
+    private fun anotherDialog(cmTimer: Chronometer){
         cmTimer.stop()
 
-        // get min and sec from chronometer
+        // get minutes and seconds from the timer
         val seconds = (SystemClock.elapsedRealtime() - cmTimer.base) / 1000 % 60
         val minutes = (SystemClock.elapsedRealtime() - cmTimer.base) / 1000 / 60 % 60
+
+        // to get leading zeros
         val sec = seconds.toString().padStart(2, '0')
         val min = minutes.toString().padStart(2, '0')
-
-        val dialog = Dialog(this)
-
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.layout_sudoku_complete)
 
 
         val bestTimeManager = BestTimeManager(this)
@@ -161,47 +160,27 @@ class GameActivity : AppCompatActivity(){
             bestTimeManager.saveBestTime(seconds, minutes, gameDifficulty)
         }
 
-
         bestTime = bestTimeManager.getBestTime(gameDifficulty)
+
         bestSeconds = bestTime.first
         bestMinutes = bestTime.second
 
-        val tvBestTime: TextView = dialog.findViewById(R.id.tvBestTime)
-        val tvTimeComplete: TextView = dialog.findViewById(R.id.tvTimeComplete)
+        val dialog = SudokuCompleteDialogFragment()
 
-        dialog.findViewById<TextView>(R.id.tvDifficultyComplete).text = when(gameDifficulty){
-            GameDifficulty.Easy -> getString(R.string.difficulty_easy)
-            GameDifficulty.Moderate -> getString(R.string.difficulty_moderate)
-            GameDifficulty.Hard -> getString(R.string.difficulty_hard)
-        }
+        dialog.isCancelable = false
 
+        val bundle = Bundle()
 
-        // Show time and best time only if timer is enabled
-        val appPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        bundle.putLong("time_seconds", seconds)
+        bundle.putLong("time_minutes", minutes)
+        bundle.putLong("best_time_seconds", bestSeconds)
+        bundle.putLong("best_time_minutes", bestMinutes)
 
-        dialog.setOnShowListener{
-            if(appPreferences.getBoolean("enable_timer", true)){
-                tvBestTime.text = getString(R.string.best_time_placeholder,
-                    bestTime.second.toString().padStart(2, '0'),
-                    bestTime.first.toString().padStart(2, '0'))
+        bundle.putSerializable("game_difficulty", gameDifficulty as Serializable)
 
-                tvTimeComplete.text = getString(R.string.complete_time_placeholder, min, sec)
-            }
-            else{
-                tvBestTime.visibility = View.GONE
-                tvTimeComplete.visibility = View.GONE
-                dialog.findViewById<TextView>(R.id.tvBestTimeHeader).visibility = View.GONE
-                dialog.findViewById<TextView>(R.id.tvTimeCompleteHeader).visibility = View.GONE
-            }
-        }
+        dialog.arguments = bundle
 
-        val btnRestart = dialog.findViewById(R.id.btnCompleteRestart) as Button
-        btnRestart.setOnClickListener {
-            startGame()
-            dialog.dismiss()
-        }
-
-        dialog.show()
+        dialog.show(supportFragmentManager, "sudoku complete")
     }
 
     private fun initPrefs(){
@@ -213,10 +192,6 @@ class GameActivity : AppCompatActivity(){
     }
 
     fun onBtnEraseClick(view: View){
-        val row = SudokuGame.selectedRow - 1
-        val col = SudokuGame.selectedCol - 1
-        val num = SudokuGame.mainBoard[row][col].value
-
         sudokuGame.eraseNumber()
 
         hideFullyUsedNumber()
@@ -244,7 +219,8 @@ class GameActivity : AppCompatActivity(){
 
     private fun checkForComplete(){
         if(sudokuGame.checkForComplete()){
-            completeDialog(cmTimer)
+            //completeDialog(cmTimer)
+            anotherDialog(cmTimer)
         }
     }
 

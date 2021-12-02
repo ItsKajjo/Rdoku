@@ -20,6 +20,7 @@
             android:fontFamily="@font/comfortaa_regular"
             android:text="@string/sudoku_complete_title"
             android:textSize="18sp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -100,6 +101,8 @@
                 style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
                 android:text="@string/btnRestartComplete" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

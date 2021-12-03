@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
             3 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
+
     fun onSettingsClick(view: View){
         val intent: Intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)

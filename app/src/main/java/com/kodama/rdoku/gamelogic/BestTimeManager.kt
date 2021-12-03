@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 class BestTimeManager(private val context: Context) {
 
     fun saveBestTime(seconds: Long, minutes: Long, gameDifficulty: GameDifficulty){
-        val prefs = context.getSharedPreferences("best_score", AppCompatActivity.MODE_PRIVATE)
+        val prefs = context.getSharedPreferences("best_time", AppCompatActivity.MODE_PRIVATE)
         val editor = prefs.edit()
 
         when(gameDifficulty){
@@ -25,11 +25,15 @@ class BestTimeManager(private val context: Context) {
                 editor.putLong("best_minutes_hard", minutes)
             }
         }
-        editor.commit()
+        editor.apply()
     }
 
+    /**
+     * Get best time from sharedPreferences
+     * @return First: seconds, Second: Minutes
+     * **/
     fun getBestTime(gameDifficulty: GameDifficulty):Pair<Long, Long>{
-        val prefs = context.getSharedPreferences("best_score", AppCompatActivity.MODE_PRIVATE)
+        val prefs = context.getSharedPreferences("best_time", AppCompatActivity.MODE_PRIVATE)
         var bestSeconds = 0L
         var bestMinutes = 0L
 

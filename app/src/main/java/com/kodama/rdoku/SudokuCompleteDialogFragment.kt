@@ -15,7 +15,7 @@ class SudokuCompleteDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var rview = inflater.inflate(R.layout.layout_sudoku_complete, container, false)
+        val rview = inflater.inflate(R.layout.layout_sudoku_complete, container, false)
 
         val timeMinutes = requireArguments().getLong("time_minutes")
         val timeSeconds = requireArguments().getLong("time_seconds")
@@ -30,6 +30,7 @@ class SudokuCompleteDialogFragment : DialogFragment() {
         val tvBestTime = rview.findViewById<TextView>(R.id.tvBestTime)
         val tvDifficulty = rview.findViewById<TextView>(R.id.tvDifficultyComplete)
 
+        // using padStart to get leading zeros in minutes and seconds
         tvTimeComplete.text = getString(R.string.complete_time_placeholder,
             timeMinutes.toString().padStart(2, '0'),
             timeSeconds.toString().padStart(2, '0'))

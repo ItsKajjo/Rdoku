@@ -1,13 +1,11 @@
 package com.kodama.rdoku
 
-import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
 import android.widget.*
-import androidx.fragment.app.DialogFragment
 import androidx.preference.PreferenceManager
 import com.kodama.rdoku.customview.SudokuBoardView
 import com.kodama.rdoku.gamelogic.BestTimeManager
@@ -15,7 +13,6 @@ import com.kodama.rdoku.gamelogic.GameDifficulty
 import com.kodama.rdoku.gamelogic.SudokuGame
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.io.Serializable
 import kotlin.random.Random
@@ -145,11 +142,6 @@ class GameActivity : AppCompatActivity(){
         val seconds = (SystemClock.elapsedRealtime() - cmTimer.base) / 1000 % 60
         val minutes = (SystemClock.elapsedRealtime() - cmTimer.base) / 1000 / 60 % 60
 
-        // to get leading zeros
-        val sec = seconds.toString().padStart(2, '0')
-        val min = minutes.toString().padStart(2, '0')
-
-
         val bestTimeManager = BestTimeManager(this)
 
         var bestTime = bestTimeManager.getBestTime(gameDifficulty)
@@ -199,12 +191,8 @@ class GameActivity : AppCompatActivity(){
     }
 
     fun onBtnHintClick(view: View){
-        val row = SudokuGame.selectedRow - 1
-        val col = SudokuGame.selectedCol - 1
-
         sudokuGame.useHint()
 
-        val num = SudokuGame.mainBoard[row][col].value
         hideFullyUsedNumber()
         checkForComplete()
 
@@ -219,7 +207,6 @@ class GameActivity : AppCompatActivity(){
 
     private fun checkForComplete(){
         if(sudokuGame.checkForComplete()){
-            //completeDialog(cmTimer)
             anotherDialog(cmTimer)
         }
     }

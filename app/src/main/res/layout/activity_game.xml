@@ -6,55 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
-    <TextView
-        android:id="@+id/tvDifficulty"
+    <LinearLayout
+        android:id="@+id/linearLayoutDifficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:padding="6dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/sudokuBoard"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/ic_tournament_cup_24dp" />
+
+        <TextView
+            android:id="@+id/tvDifficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Moderate"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/sudokuBoard"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/linearLayoutTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/sudokuBoard"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <Chronometer
             android:id="@+id/cmTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/comfortaa_regular"
+            android:padding="4dp"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/sudokuBoard"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:padding="4dp"/>
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <ImageView
-            android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/cmTimer"
             app:layout_constraintEnd_toStartOf="@+id/cmTimer"
-            app:srcCompat="@drawable/ic_clock_black_24dp"
-            android:layout_marginTop="8dp"/>
+            app:srcCompat="@drawable/ic_clock_black_24dp" />
     </LinearLayout>
 
     <com.kodama.rdoku.customview.SudokuBoardView
         android:id="@+id/sudokuBoard"
+        style="@style/SudokuBoard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/SudokuBoard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4"/>
+        app:layout_constraintVertical_bias="0.4" />
 
     <LinearLayout
         android:id="@+id/gameKeyboard"
@@ -150,9 +166,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/gameKeyboard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameKeyboard">
 
         <ImageButton
             android:id="@+id/btnHint"
@@ -160,8 +176,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_hint_24dp"
-            android:onClick="onBtnHintClick"/>
+            android:onClick="onBtnHintClick"
+            android:src="@drawable/ic_hint_24dp" />
 
         <ImageButton
             android:id="@+id/btnErase"
@@ -169,8 +185,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_clear_24dp"
-            android:onClick="onBtnEraseClick"/>
+            android:onClick="onBtnEraseClick"
+            android:src="@drawable/ic_clear_24dp" />
 
         <Button
             android:id="@+id/dbgBtnSolve"
@@ -178,10 +194,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="SOLVE"
-            android:onClick="onDbgBtnSolveClick"/>
+            android:onClick="onDbgBtnSolveClick"
+            android:text="SOLVE" />
 
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

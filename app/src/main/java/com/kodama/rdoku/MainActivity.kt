@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
-import com.kodama.rdoku.gamelogic.GameDifficulty
+import com.kodama.rdoku.model.GameDifficulty
 import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {

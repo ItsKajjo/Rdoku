@@ -2,6 +2,7 @@ package com.kodama.rdoku.gamelogic
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
+import com.kodama.rdoku.model.GameDifficulty
 
 class BestTimeManager(private val context: Context) {
 

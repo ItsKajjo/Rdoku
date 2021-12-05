@@ -1,4 +1,4 @@
-package com.kodama.rdoku.gamelogic
+package com.kodama.rdoku.model
 
 import java.io.Serializable
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import com.kodama.rdoku.gamelogic.GameDifficulty
+import com.kodama.rdoku.model.GameDifficulty
 
 class SudokuCompleteDialogFragment : DialogFragment() {
     override fun onCreateView(

@@ -9,7 +9,7 @@ import android.widget.*
 import androidx.preference.PreferenceManager
 import com.kodama.rdoku.customview.SudokuBoardView
 import com.kodama.rdoku.gamelogic.BestTimeManager
-import com.kodama.rdoku.gamelogic.GameDifficulty
+import com.kodama.rdoku.model.GameDifficulty
 import com.kodama.rdoku.gamelogic.SudokuGame
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -135,7 +135,7 @@ class GameActivity : AppCompatActivity(){
         sudokuBoard.invalidate()
     }
 
-    private fun anotherDialog(cmTimer: Chronometer){
+    private fun showCompleteDialog(cmTimer: Chronometer){
         cmTimer.stop()
 
         // get minutes and seconds from the timer
@@ -175,6 +175,7 @@ class GameActivity : AppCompatActivity(){
         dialog.show(supportFragmentManager, "sudoku complete")
     }
 
+    // initializing preferences
     private fun initPrefs(){
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
@@ -199,6 +200,8 @@ class GameActivity : AppCompatActivity(){
         sudokuBoard.invalidate()
     }
 
+
+    // Debug button, will be removed in realese
     fun onDbgBtnSolveClick(view: View){
         sudokuGame.debugSolve()
         enableGameKeyboard(false)
@@ -207,10 +210,11 @@ class GameActivity : AppCompatActivity(){
 
     private fun checkForComplete(){
         if(sudokuGame.checkForComplete()){
-            anotherDialog(cmTimer)
+            showCompleteDialog(cmTimer)
         }
     }
 
+    // hiding numbers that have been used 9 times
     private fun hideFullyUsedNumber(){
         for(i in 1..9){
             val button: Button = when(i){

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import androidx.preference.PreferenceManager
 import com.kodama.rdoku.model.GameDifficulty
 
 class SudokuCompleteDialogFragment : DialogFragment() {
@@ -45,6 +46,14 @@ class SudokuCompleteDialogFragment : DialogFragment() {
             GameDifficulty.Hard -> getString(R.string.difficulty_hard)
         }
 
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
+        if(!prefs.getBoolean("enable_timer", true)){
+            tvBestTime.visibility = View.GONE
+            tvTimeComplete.visibility = View.GONE
+            rview.findViewById<TextView>(R.id.tvTimeCompleteHeader).visibility = View.GONE
+            rview.findViewById<TextView>(R.id.tvBestTimeHeader).visibility = View.GONE
+        }
         val btnRestart: Button = rview.findViewById(R.id.btnCompleteRestart)
         btnRestart.setOnClickListener {
             this.dismiss()

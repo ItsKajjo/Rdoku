@@ -8,4 +8,7 @@
         android:id="@+id/about_menu"
         android:title="@string/game_menu_about"
         android:icon="@drawable/ic_info_24dp"/>
+    <item
+        android:id="@+id/settings_menu"
+        android:title="@string/game_menu_settings"/>
 </menu>

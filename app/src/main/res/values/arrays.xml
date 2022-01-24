@@ -1,5 +1,5 @@
 <resources>
-    <!-- Reply Preference -->
+    <!-- App Theme Preference -->
     <string-array name="dark_mode_entries">
         <item>@string/dark_mode_follow_system</item>
         <item>@string/dark_mode_enable_dark</item>
@@ -11,6 +11,7 @@
         <item>3</item>
     </string-array>
 
+    <!-- Game difficulties -->
     <string-array name="game_difficulties">
         <item>@string/difficulty_easy</item>
         <item>@string/difficulty_moderate</item>

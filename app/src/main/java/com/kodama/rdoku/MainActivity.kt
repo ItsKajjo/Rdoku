@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             2L -> intent.putExtra("game_difficulty", GameDifficulty.Hard as Serializable)
             else -> intent.putExtra("game_difficulty", GameDifficulty.Easy as Serializable)
         }
-        startActivityForResult(intent, RESULT_OK)
+        startActivity(intent)
     }
 
 }

@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/comfortaa_bold"
-            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:text="@string/game_rules_header"
             android:textSize="24sp" />
 
@@ -110,6 +110,23 @@
                 android:text="@string/github_link_kajjo"
                 android:layout_gravity="center"/>
         </LinearLayout>
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvVersionState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:layout_marginStart="8dp"
+        android:text="@string/app_version_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_version_number"
+        android:textSize="13sp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintStart_toEndOf="@id/tvVersionState"
+        app:layout_constraintBottom_toBottomOf="@id/tvVersionState"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -206,7 +206,7 @@ class GameActivity : AppCompatActivity(){
     }
 
 
-    // Debug button, will be removed in realese
+    // Debug button
     fun onDbgBtnSolveClick(view: View){
         sudokuGame.debugSolve()
         enableGameKeyboard(false)

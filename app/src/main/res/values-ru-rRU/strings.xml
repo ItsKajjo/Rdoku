@@ -29,4 +29,5 @@
     <string name="best_time">Лучшее время</string>
     <string name="highlight_identical_numbers_header">Подсвечивать одинаковые числа</string>
     <string name="highlight_identical_numbers_summary">При выборе клетки с числом, такие же числа подсвечиваются на поле</string>
+    <string name="app_version_text">Версия</string>
 </resources>

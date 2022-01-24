@@ -19,7 +19,7 @@
             android:text="@string/reset_easy_best"
             style="@style/Theme.RDOKU.ActionBar"
             android:textSize="16sp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/btnPrefResetModerate"
@@ -27,7 +27,7 @@
             style="@style/Theme.RDOKU.ActionBar"
             android:layout_marginTop="12dp"
             android:textSize="16sp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/btnPrefResetHard"
@@ -35,7 +35,7 @@
             style="@style/Theme.RDOKU.ActionBar"
             android:layout_marginTop="12dp"
             android:textSize="16sp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

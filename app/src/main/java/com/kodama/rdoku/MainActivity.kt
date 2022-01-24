@@ -26,6 +26,13 @@ class MainActivity : AppCompatActivity() {
             2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             3 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
+
+        val difficultySpinner = findViewById<Spinner>(R.id.spinner_game_difficulty)
+        when(prefs.getString("last_selected_difficulty", "easy")){
+            "easy" -> difficultySpinner.setSelection(0)
+            "moderate" -> difficultySpinner.setSelection(1)
+            "hard" -> difficultySpinner.setSelection(2)
+        }
     }
 
     fun onSettingsClick(view: View){
@@ -48,7 +55,24 @@ class MainActivity : AppCompatActivity() {
             2L -> intent.putExtra("game_difficulty", GameDifficulty.Hard as Serializable)
             else -> intent.putExtra("game_difficulty", GameDifficulty.Easy as Serializable)
         }
+
+        saveLastDifficulty()
+
         startActivity(intent)
     }
 
+    private fun saveLastDifficulty(){
+        val difficultySpinner = findViewById<Spinner>(R.id.spinner_game_difficulty)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val editor = prefs.edit()
+
+        when(difficultySpinner.selectedItemPosition){
+            0 -> editor.putString("last_selected_difficulty", "easy")
+            1 -> editor.putString("last_selected_difficulty", "moderate")
+            2 -> editor.putString("last_selected_difficulty", "hard")
+
+            else -> editor.putString("last_selected_difficulty", "easy")
+        }
+        editor.apply()
+    }
 }

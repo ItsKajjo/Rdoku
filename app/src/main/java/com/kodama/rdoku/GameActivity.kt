@@ -30,10 +30,10 @@ class GameActivity : AppCompatActivity(){
 
         if(bundle != null){
             gameDifficulty = bundle.getSerializable("game_difficulty") as GameDifficulty
-            cmTimer = findViewById(R.id.cmTimer)
-            startGame()
         }
 
+        cmTimer = findViewById(R.id.cmTimer)
+        startGame()
         sudokuBoard = findViewById(R.id.sudokuBoard)
 
         initPrefs()
@@ -153,8 +153,17 @@ class GameActivity : AppCompatActivity(){
         var bestSeconds = bestTime.first
         var bestMinutes = bestTime.second
 
+        var isNewBestTime = false
+        var isFirstBestTime = false
+
+        if(bestMinutes == 0L && bestSeconds == 0L){
+            isFirstBestTime = true
+        }
+
+
         if(minutes <= bestMinutes && seconds < bestSeconds || bestMinutes == 0L && bestSeconds == 0L){
             bestTimeManager.saveBestTime(seconds, minutes, gameDifficulty)
+            isNewBestTime = true
         }
 
         bestTime = bestTimeManager.getBestTime(gameDifficulty)
@@ -162,22 +171,18 @@ class GameActivity : AppCompatActivity(){
         bestSeconds = bestTime.first
         bestMinutes = bestTime.second
 
-        val dialog = SudokuCompleteDialogFragment()
+        val intent = Intent(this, CompleteActivity::class.java)
 
-        dialog.isCancelable = false
+        intent.putExtra("time_seconds", seconds)
+        intent.putExtra("time_minutes", minutes)
+        intent.putExtra("best_time_seconds", bestSeconds)
+        intent.putExtra("best_time_minutes", bestMinutes)
 
-        val bundle = Bundle()
+        intent.putExtra("new_best_time", isNewBestTime)
+        intent.putExtra("first_best_time", isFirstBestTime)
 
-        bundle.putLong("time_seconds", seconds)
-        bundle.putLong("time_minutes", minutes)
-        bundle.putLong("best_time_seconds", bestSeconds)
-        bundle.putLong("best_time_minutes", bestMinutes)
-
-        bundle.putSerializable("game_difficulty", gameDifficulty as Serializable)
-
-        dialog.arguments = bundle
-
-        dialog.show(supportFragmentManager, "sudoku complete")
+        intent.putExtra("game_difficulty", gameDifficulty as Serializable)
+        startActivity(intent)
     }
 
     // initializing preferences

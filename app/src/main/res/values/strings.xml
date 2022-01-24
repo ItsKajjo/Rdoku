@@ -27,21 +27,20 @@
     <!-- ActionBar Game Menu Items -->
     <string name="action_menu_restart">Restart</string>
 
-
-
-    <!-- Sudoku complete dialog -->
-    <string name="sudoku_complete_title">Sudoku is complete!</string>
-    <string name="sudoku_complete_difficulty">Difficulty:</string>
-    <string name="sudoku_complete_time">Time:</string>
-    <string name="complete_time_placeholder" translatable="false">%1$s:%2$s</string>
-    <string name="btnRestartComplete">Restart</string>
-    <string name="best_time">Best Time</string>
-    <string name="best_time_placeholder" translatable="false">%1$s:%2$s</string>
+    <!-- Sudoku Complete Activity -->
+    <string name="complete_congrats_faster">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s! This is even faster than your previous record - %4$s:%5$s 🔥</string>
+    <string name="complete_congrats_slower">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s!  It\'s not faster than your previous record - %4$s:%5$s, but still not bad ❤️</string>
+    <string name="complete_congrats_first">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s!  This is was your first time 😍</string>
+    <string name="complete_difficulty">Difficulty - %1$s</string>
+    <string name="complete_time">Time - %1$s:%2$s</string>
+    <string name="complete_best_time">Best - %1$s:%2$s</string>
+    <string name="complete_detailed_stats">Detailed statistics:</string>
 
     <!-- Preference Titles -->
     <string name="title_activity_settings">Settings</string>
     <string name="appearance_header">Appearance</string>
     <string name="gameplay_header">Gameplay</string>
+    <string name="miscellaneous_header">Miscellaneous</string>
 
     <!-- Appearance Preferences -->
     <string name="app_theme_title">App theme</string>
@@ -53,6 +52,15 @@
     <string name="enable_timer_header">Enable timer</string>
     <string name="highlight_identical_numbers_header">Highlight identical numbers</string>
     <string name="highlight_identical_numbers_summary">When you select a cell with a number, the same digits are highlighted on the board</string>
+
+    <!-- Miscellaneous Preferences -->
+    <string name="reset_easy_best">Reset best time for easy difficulty</string>
+    <string name="reset_moderate_best">Reset best time for moderate difficulty</string>
+    <string name="reset_hard_best">Reset best time for hard difficulty</string>
+
+    <string name="easy_reseted">Best time for easy reset successfully</string>
+    <string name="moderate_reseted">Best time for easy reset successfully</string>
+    <string name="hard_reseted">Best time for easy reset successfully</string>
 
     <!-- About -->
     <string name="game_rules_header">Rules</string>
@@ -66,6 +74,7 @@
     <string name="github_link_kajjo" translatable="false"><a href="https://github.com/ItsKajjo">GitHub</a></string>
 
     <!-- build version and something else -->
-    <string name="app_version_number" translatable="false">0.5.2</string>
+    <string name="app_version_number" translatable="false">0.5.3</string>
     <string name="app_version_text">Version</string>
+
 </resources>

@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RDOKU">
         <activity
+            android:name=".CompleteActivity"
+            android:exported="false" />
+        <activity
             android:name=".AboutActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.RDOKU.ActionBar"/>
+            android:theme="@style/Theme.RDOKU.ActionBar" />
         <activity
             android:name=".GameActivity"
             android:exported="false"
@@ -25,7 +28,7 @@
             android:exported="false"
             android:label="@string/title_activity_settings"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.RDOKU.ActionBar"/>
+            android:theme="@style/Theme.RDOKU.ActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

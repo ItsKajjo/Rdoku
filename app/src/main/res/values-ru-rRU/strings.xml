@@ -22,12 +22,21 @@
     <string name="dark_mode_enable_light">Включить светлую тему</string>
     <string name="gameplay_header">Геймплей</string>
     <string name="enable_timer_header">Включить таймер</string>
-    <string name="sudoku_complete_title">Судоку решена!</string>
-    <string name="sudoku_complete_difficulty">Сложность:</string>
-    <string name="sudoku_complete_time">Время:</string>
-    <string name="btnRestartComplete">Рестарт</string>
-    <string name="best_time">Лучшее время</string>
     <string name="highlight_identical_numbers_header">Подсвечивать одинаковые числа</string>
     <string name="highlight_identical_numbers_summary">При выборе клетки с числом, такие же числа подсвечиваются на поле</string>
     <string name="app_version_text">Версия</string>
+    <string name="complete_congrats_faster">Поздравляем 🎉\nВы завершили судоку уровня %1$s всего лишь за %2$s:%3$s! Это даже быстрее, чем ваш прошлый рекорд в %4$s:%5$s🔥</string>
+    <string name="complete_congrats_slower">Поздравляем 🎉\nВы завершили судоку уровня %1$s всего лишь за %2$s:%3$s! Это не быстрее вашего рекорда в %4$s:%5$s, но все равно неплохо ❤️️</string>
+    <string name="complete_detailed_stats">Подробная статистика:</string>
+    <string name="complete_difficulty">Сложность - %1$s</string>
+    <string name="complete_time">Время - %1$s:%2$s</string>
+    <string name="complete_best_time">Рекорд - %1$s:%2$s</string>
+    <string name="complete_congrats_first">Поздравляем 🎉\nВы завершили судоку уровня %1$s всего лишь за %2$s:%3$s! Это был ваш первый раз 😍</string>
+    <string name="miscellaneous_header">Разное</string>
+    <string name="reset_easy_best">Сбросить лучшее время для легкого уровня сложности</string>
+    <string name="reset_moderate_best">Сбросить лучшее вермя для среднего уровня сложности</string>
+    <string name="reset_hard_best">Сбросить лучшее время для сложного уровня сложности</string>
+    <string name="easy_reseted">Лучшее время для легкого уровня сложности сброшено</string>
+    <string name="moderate_reseted">Лучшее время для среднего уровня сложности сброшено</string>
+    <string name="hard_reseted">Лучшее время для сложного уровня сложности сброшено</string>
 </resources>

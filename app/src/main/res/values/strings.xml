@@ -53,14 +53,14 @@
     <string name="highlight_identical_numbers_header">Highlight identical numbers</string>
     <string name="highlight_identical_numbers_summary">When you select a cell with a number, the same digits are highlighted on the board</string>
 
-    <!-- Miscellaneous Preferences -->
+    <!-- Buttons Preferences -->
     <string name="reset_easy_best">Reset best time for easy difficulty</string>
     <string name="reset_moderate_best">Reset best time for moderate difficulty</string>
     <string name="reset_hard_best">Reset best time for hard difficulty</string>
 
-    <string name="easy_reseted">Best time for easy reset successfully</string>
-    <string name="moderate_reseted">Best time for easy reset successfully</string>
-    <string name="hard_reseted">Best time for easy reset successfully</string>
+    <string name="easy_reset_success">Best time for easy reset successfully</string>
+    <string name="moderate_reset_success">Best time for moderate reset successfully</string>
+    <string name="hard_reset_success">Best time for hard reset successfully</string>
 
     <!-- About -->
     <string name="game_rules_header">Rules</string>
@@ -74,7 +74,7 @@
     <string name="github_link_kajjo" translatable="false"><a href="https://github.com/ItsKajjo">GitHub</a></string>
 
     <!-- build version and something else -->
-    <string name="app_version_number" translatable="false">0.5.3</string>
+    <string name="app_version_number" translatable="false">0.5.31</string>
     <string name="app_version_text">Version</string>
 
 </resources>

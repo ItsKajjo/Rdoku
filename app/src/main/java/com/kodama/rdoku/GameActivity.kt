@@ -11,6 +11,7 @@ import com.kodama.rdoku.customview.SudokuBoardView
 import com.kodama.rdoku.gamelogic.BestTimeManager
 import com.kodama.rdoku.model.GameDifficulty
 import com.kodama.rdoku.gamelogic.SudokuGame
+import com.kodama.rdoku.model.BoardState
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -140,7 +141,7 @@ class GameActivity : AppCompatActivity(){
         sudokuBoard.invalidate()
     }
 
-    private fun showCompleteDialog(cmTimer: Chronometer){
+    private fun showCompleteActivity(cmTimer: Chronometer){
         cmTimer.stop()
 
         // get minutes and seconds from the timer
@@ -160,8 +161,12 @@ class GameActivity : AppCompatActivity(){
             isFirstBestTime = true
         }
 
-
+        var prevBestSeconds = 0L
+        var prevBestMinutes = 0L
         if(minutes <= bestMinutes && seconds < bestSeconds || bestMinutes == 0L && bestSeconds == 0L){
+            prevBestSeconds = bestSeconds
+            prevBestMinutes = bestMinutes
+
             bestTimeManager.saveBestTime(seconds, minutes, gameDifficulty)
             isNewBestTime = true
         }
@@ -171,12 +176,16 @@ class GameActivity : AppCompatActivity(){
         bestSeconds = bestTime.first
         bestMinutes = bestTime.second
 
+
         val intent = Intent(this, CompleteActivity::class.java)
 
         intent.putExtra("time_seconds", seconds)
         intent.putExtra("time_minutes", minutes)
         intent.putExtra("best_time_seconds", bestSeconds)
         intent.putExtra("best_time_minutes", bestMinutes)
+
+        intent.putExtra("prev_best_seconds", prevBestSeconds)
+        intent.putExtra("prev_best_minutes", prevBestMinutes)
 
         intent.putExtra("new_best_time", isNewBestTime)
         intent.putExtra("first_best_time", isFirstBestTime)
@@ -195,19 +204,23 @@ class GameActivity : AppCompatActivity(){
     }
 
     fun onBtnEraseClick(view: View){
-        sudokuGame.eraseNumber()
+        if(sudokuGame.boardState != BoardState.Complete){
+            sudokuGame.eraseNumber()
 
-        hideFullyUsedNumber()
-        sudokuBoard.invalidate()
+            hideFullyUsedNumber()
+            sudokuBoard.invalidate()
+        }
     }
 
     fun onBtnHintClick(view: View){
-        sudokuGame.useHint()
+        if(sudokuGame.boardState != BoardState.Complete){
+            sudokuGame.useHint()
 
-        hideFullyUsedNumber()
-        checkForComplete()
+            hideFullyUsedNumber()
+            checkForComplete()
 
-        sudokuBoard.invalidate()
+            sudokuBoard.invalidate()
+        }
     }
 
 
@@ -220,7 +233,7 @@ class GameActivity : AppCompatActivity(){
 
     private fun checkForComplete(){
         if(sudokuGame.checkForComplete()){
-            showCompleteDialog(cmTimer)
+            showCompleteActivity(cmTimer)
         }
     }
 

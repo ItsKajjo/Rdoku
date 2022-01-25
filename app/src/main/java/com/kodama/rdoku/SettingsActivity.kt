@@ -31,19 +31,19 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         findViewById<Button>(R.id.btnPrefResetEasy).setOnClickListener {
             val bestTimeManager = BestTimeManager(this)
             bestTimeManager.saveBestTime(0, 0, GameDifficulty.Easy)
-            Toast.makeText(this, getString(R.string.easy_reseted), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.easy_reset_success), Toast.LENGTH_SHORT).show()
         }
 
         findViewById<Button>(R.id.btnPrefResetModerate).setOnClickListener {
             val bestTimeManager = BestTimeManager(this)
             bestTimeManager.saveBestTime(0, 0, GameDifficulty.Moderate)
-            Toast.makeText(this, getString(R.string.moderate_reseted), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.moderate_reset_success), Toast.LENGTH_SHORT).show()
         }
 
         findViewById<Button>(R.id.btnPrefResetHard).setOnClickListener {
             val bestTimeManager = BestTimeManager(this)
             bestTimeManager.saveBestTime(0, 0, GameDifficulty.Hard)
-            Toast.makeText(this, getString(R.string.hard_reseted), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.hard_reset_success), Toast.LENGTH_SHORT).show()
         }
     }
 

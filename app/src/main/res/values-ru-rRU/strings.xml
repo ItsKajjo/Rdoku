@@ -36,7 +36,7 @@
     <string name="reset_easy_best">Сбросить лучшее время для легкого уровня сложности</string>
     <string name="reset_moderate_best">Сбросить лучшее вермя для среднего уровня сложности</string>
     <string name="reset_hard_best">Сбросить лучшее время для сложного уровня сложности</string>
-    <string name="easy_reseted">Лучшее время для легкого уровня сложности сброшено</string>
-    <string name="moderate_reseted">Лучшее время для среднего уровня сложности сброшено</string>
-    <string name="hard_reseted">Лучшее время для сложного уровня сложности сброшено</string>
+    <string name="easy_reset_success">Лучшее время для легкого уровня сложности сброшено</string>
+    <string name="moderate_reset_success">Лучшее время для среднего уровня сложности сброшено</string>
+    <string name="hard_reset_success">Лучшее время для сложного уровня сложности сброшено</string>
 </resources>

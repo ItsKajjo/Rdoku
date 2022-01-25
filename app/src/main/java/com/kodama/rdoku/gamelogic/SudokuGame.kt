@@ -3,11 +3,13 @@ package com.kodama.rdoku.gamelogic
 import android.content.Context
 import android.util.Log
 import com.kodama.rdoku.R
+import com.kodama.rdoku.model.BoardState
 import com.kodama.rdoku.model.SudokuCell
 import kotlin.random.Random
 import kotlin.system.measureTimeMillis
 
 class SudokuGame(private var context: Context?){
+    var boardState = BoardState.Incompelte
 
     companion object{
         var mainBoard: Array<Array<SudokuCell>> = arrayOf(
@@ -96,6 +98,7 @@ class SudokuGame(private var context: Context?){
                 }
             }
         }
+        boardState = BoardState.Complete
         return true
     }
 

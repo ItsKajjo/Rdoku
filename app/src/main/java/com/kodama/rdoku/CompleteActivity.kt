@@ -34,8 +34,8 @@ class CompleteActivity : AppCompatActivity() {
         val extras: Bundle? = intent.extras
 
         if (extras != null) {
-            // game difficulty
 
+            // game difficulty
             currentGameDifficulty = extras.getSerializable("game_difficulty") as GameDifficulty
 
             val difficultyText: String =
@@ -61,6 +61,10 @@ class CompleteActivity : AppCompatActivity() {
             val bestMinutes = extras.getLong("best_time_minutes", 0L).toString()
             val bestSeconds = extras.getLong("best_time_seconds", 0L).toString()
 
+            // previous best time
+            val prevBestMinutes = extras.getLong("prev_best_minutes", 0L).toString()
+            val prevBestSeconds = extras.getLong("prev_best_seconds", 0L).toString()
+
             findViewById<TextView>(R.id.tvCompleteBestTime).text = getString(
                 R.string.complete_best_time,
                 bestMinutes.padStart(2, '0'),
@@ -68,18 +72,18 @@ class CompleteActivity : AppCompatActivity() {
             )
 
             // congrats text
+            // where args: 1 - difficulty, 2:3 - time to complete, 4:5 - best time
             if (extras.getBoolean("new_best_time", false)) {
-                // 1 - difficulty, 2:3 - time to complete, 4:5 - best time
+
                 findViewById<TextView>(R.id.tvCompleteCongrats).text = getString(
                     R.string.complete_congrats_faster,
                     difficultyText.lowercase(),
                     timeMinutes.padStart(2, '0'),
                     timeSeconds.padStart(2, '0'),
-                    bestMinutes.padStart(2, '0'),
-                    bestSeconds.padStart(2, '0')
+                    prevBestMinutes.padStart(2, '0'),
+                    prevBestSeconds.padStart(2, '0')
                 )
             } else {
-                // 1 - difficulty, 2:3 - time to complete, 4:5 - best time
                 findViewById<TextView>(R.id.tvCompleteCongrats).text = getString(
                     R.string.complete_congrats_slower,
                     difficultyText.lowercase(),

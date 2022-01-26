@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
 import android.widget.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import com.kodama.rdoku.customview.SudokuBoardView
 import com.kodama.rdoku.gamelogic.BestTimeManager
@@ -96,14 +99,14 @@ class GameActivity : AppCompatActivity(){
     fun startGame(){
         when(gameDifficulty){
             GameDifficulty.Easy -> {
-                GlobalScope.launch{
+                lifecycleScope.launch{
                     sudokuGame.generateBoard(Random.nextInt(29, 34))
                 }
                 findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_easy)
             }
 
             GameDifficulty.Moderate -> {
-                GlobalScope.launch{
+                lifecycleScope.launch{
                     sudokuGame.generateBoard(Random.nextInt(26, 29))
                 }
                 findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_moderate)

@@ -69,6 +69,12 @@ class GameActivity : AppCompatActivity(){
                 startActivity(intent)
                 true
             }
+            R.id.solve_menu ->{
+                sudokuGame.debugSolve()
+                enableGameKeyboard(false)
+                sudokuBoard.invalidate()
+                true
+            }
             else -> {
                 super.onOptionsItemSelected(item)
             }
@@ -221,14 +227,6 @@ class GameActivity : AppCompatActivity(){
 
             sudokuBoard.invalidate()
         }
-    }
-
-
-    // Debug button
-    fun onDbgBtnSolveClick(view: View){
-        sudokuGame.debugSolve()
-        enableGameKeyboard(false)
-        sudokuBoard.invalidate()
     }
 
     private fun checkForComplete(){

@@ -188,15 +188,5 @@
             android:onClick="onBtnEraseClick"
             android:src="@drawable/ic_clear_24dp" />
 
-        <Button
-            android:id="@+id/dbgBtnSolve"
-            android:visibility="visible"
-            style="@style/gameKeyboardButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="onDbgBtnSolveClick"
-            android:text="SOLVE" />
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

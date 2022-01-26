@@ -9,7 +9,7 @@ import kotlin.random.Random
 import kotlin.system.measureTimeMillis
 
 class SudokuGame(private var context: Context?){
-    var boardState = BoardState.Incompelte
+    var boardState = BoardState.Incomplete
 
     companion object{
         var mainBoard: Array<Array<SudokuCell>> = arrayOf(

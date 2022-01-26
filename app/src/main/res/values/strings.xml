@@ -28,9 +28,9 @@
     <string name="action_menu_restart">Restart</string>
 
     <!-- Sudoku Complete Activity -->
-    <string name="complete_congrats_faster">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s! This is even faster than your previous record - %4$s:%5$s 🔥</string>
-    <string name="complete_congrats_slower">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s!  It\'s not faster than your previous record - %4$s:%5$s, but still not bad ❤️</string>
-    <string name="complete_congrats_first">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s!  This is was your first time 😍</string>
+    <string name="complete_congrats_faster">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s! It\'is even faster than your previous best - %4$s:%5$s 🔥</string>
+    <string name="complete_congrats_slower">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s!  It\'s not faster than your previous best  - %4$s:%5$s, but still not bad ❤️</string>
+    <string name="complete_congrats_first">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s!  It\'s was your first time 😍</string>
     <string name="complete_difficulty">Difficulty - %1$s</string>
     <string name="complete_time">Time - %1$s:%2$s</string>
     <string name="complete_best_time">Best - %1$s:%2$s</string>
@@ -40,7 +40,6 @@
     <string name="title_activity_settings">Settings</string>
     <string name="appearance_header">Appearance</string>
     <string name="gameplay_header">Gameplay</string>
-    <string name="miscellaneous_header">Miscellaneous</string>
 
     <!-- Appearance Preferences -->
     <string name="app_theme_title">App theme</string>
@@ -71,7 +70,7 @@
     <string name="about_text">This is the about text.\n
         I don\'t know what to write here, so that\'s it…\n
         But there is my github</string>
-    <string name="github_link_kajjo" translatable="false"><a href="https://github.com/ItsKajjo">GitHub</a></string>
+    <string name="github_link_developer" translatable="false"><a href="https://github.com/ItsKajjo">GitHub</a></string>
 
     <!-- build version and something else -->
     <string name="app_version_number" translatable="false">0.5.31</string>

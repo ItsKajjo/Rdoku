@@ -29,7 +29,7 @@
     <string name="action_menu_restart">Restart</string>
 
     <!-- Sudoku Complete Activity -->
-    <string name="complete_congrats_faster">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s! It\'is even faster than your previous best - %4$s:%5$s 🔥</string>
+    <string name="complete_congrats_faster">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s! It\'s even faster than your previous best - %4$s:%5$s 🔥</string>
     <string name="complete_congrats_slower">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s!  It\'s not faster than your previous best  - %4$s:%5$s, but still not bad ❤️</string>
     <string name="complete_congrats_first">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s!  It\'s was your first time 😍</string>
     <string name="complete_difficulty">Difficulty - %1$s</string>
@@ -54,9 +54,9 @@
     <string name="highlight_identical_numbers_summary">When you select a cell with a number, the same digits are highlighted on the board</string>
 
     <!-- Buttons Preferences -->
-    <string name="reset_easy_best">Reset best time for easy difficulty</string>
-    <string name="reset_moderate_best">Reset best time for moderate difficulty</string>
-    <string name="reset_hard_best">Reset best time for hard difficulty</string>
+    <string name="reset_easy_best">Reset best for easy difficulty</string>
+    <string name="reset_moderate_best">Reset best for moderate difficulty</string>
+    <string name="reset_hard_best">Reset best for hard difficulty</string>
 
     <string name="easy_reset_success">Best time for easy reset successfully</string>
     <string name="moderate_reset_success">Best time for moderate reset successfully</string>

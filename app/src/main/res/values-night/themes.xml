@@ -36,7 +36,7 @@
     <style name="ButtonStyle" parent="Theme.AppCompat.DayNight">
         <item name="android:textColor">@color/clouds</item>
         <item name="android:textSize">18sp</item>
-        <item name="fontFamily">@font/comfortaa_regular</item>
+        <item name="fontFamily">@font/montserrat</item>
     </style>
 
     <style name="gameKeyboardButtonStyle" parent="Widget.AppCompat.Button.Borderless">

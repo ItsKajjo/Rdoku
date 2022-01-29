@@ -8,6 +8,12 @@
     <string name="difficulty_moderate">Moderate</string>
     <string name="difficulty_hard">Hard</string>
 
+    <!-- Game Mode Cards -->
+    <string name="btn_play">Play</string>
+    <string name="classic_mode_9x9">Classic 9x9 sudoku</string>
+    <string name="killer_sudoku">Killer sudoku</string>
+    <string name="in_dev">In development! Coming soon...</string>
+
     <!-- Sudoku Keyboard buttons-->
     <string name="one" translatable="false">1</string>
     <string name="two" translatable="false">2</string>
@@ -51,7 +57,7 @@
     <!-- Gameplay Preferences -->
     <string name="enable_timer_header">Enable timer</string>
     <string name="highlight_identical_numbers_header">Highlight identical numbers</string>
-    <string name="highlight_identical_numbers_summary">When you select a cell with a number, the same digits are highlighted on the board</string>
+    <string name="highlight_identical_numbers_summary">When you select a cell with a certain digit, the same digits are highlighted on the board</string>
 
     <!-- Buttons Preferences -->
     <string name="reset_easy_best">Reset best for easy difficulty</string>
@@ -64,17 +70,13 @@
 
     <!-- About -->
     <string name="game_rules_header">Rules</string>
-    <string name="game_rules_text">\t1.Each 3×3 box can only contain each number from 1 to 9 once\n
-        \t2. Each column and row can only contain each number from 1 to 9 once\n
-        Once the puzzle is solved, this means that every row, column, and 3×3 box will contain every number from 1 to 9 exactly once</string>
+    <string name="game_rules_text">\t1. Each 3×3 box can only contain each number from 1 to 9 once\n\t2. Each column and row can only contain each number from 1 to 9 once\n\tOnce the puzzle is solved, this means that every row, column, and 3×3 box will contain every number from 1 to 9 exactly once</string>
     <string name="about_header">About</string>
-    <string name="about_text">This is the about text.\n
-        I don\'t know what to write here, so that\'s it…\n
-        But there is my github</string>
+    <string name="about_text">This is the about text.\nI don\'t know what to write here, so that\'s it…\nBut there is my github</string>
     <string name="github_link_developer" translatable="false"><a href="https://github.com/ItsKajjo">GitHub</a></string>
 
     <!-- build version and something else -->
-    <string name="app_version_number" translatable="false">0.5.31</string>
+    <string name="app_version_number" translatable="false">0.5.4</string>
     <string name="app_version_text">Version</string>
 
 </resources>

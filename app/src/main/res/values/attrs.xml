@@ -7,5 +7,6 @@
         <attr name="numberColor" format="color"/>
         <attr name="lockedNumColor" format="color"/>
         <attr name="collisionNumberColor" format="color"/>
+        <attr name="size" format="integer"/>
     </declare-styleable>
 </resources>

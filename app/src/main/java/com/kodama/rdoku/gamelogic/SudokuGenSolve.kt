@@ -4,7 +4,7 @@ import com.kodama.rdoku.model.BoardRate
 import com.kodama.rdoku.model.SudokuCell
 import kotlin.random.Random
 
-class SudokuGenSolve{
+class SudokuGenSolve(val size: Int){
     // For better performance
     private val boardSubIndex: Array<Array<Pair<Int,Int>>> = arrayOf(
         arrayOf(Pair(0,0), Pair(0,1), Pair(0,2), Pair(1,0), Pair(1,1), Pair(1,2), Pair(2,0), Pair(2,1), Pair(2,2)),
@@ -44,28 +44,28 @@ class SudokuGenSolve{
      * Checks if board feasible to solve or not
      **/
     fun isSudokuFeasible():Boolean{
-        for(row: Int in 0 until 9){
-            for(col: Int in 0 until 9){
-                var candidates: Array<Int> = Array(10) {0}
+        for(row: Int in 0 until size){
+            for(col: Int in 0 until size){
+                var candidates: Array<Int> = Array(size + 1) {0}
 
-                for(i: Int in 0 until 9){
+                for(i: Int in 0 until size){
                     candidates[gameBoard[i][col].value] += 1
                 }
                 if(!feasible(candidates)){
                     return false
                 }
 
-                candidates = Array(10) {0}
-                for(i: Int in 0 until 9){
+                candidates = Array(size + 1) {0}
+                for(i: Int in 0 until size){
                     candidates[gameBoard[row][i].value] += 1
                 }
                 if(!feasible(candidates)){
                     return false
                 }
 
-                candidates = Array(10) {0}
+                candidates = Array(size + 1) {0}
                 var squareIndex: Int = squareIndexes[row][col]
-                for(i: Int in 0 until 9){
+                for(i: Int in 0 until size){
                     val cell: Pair<Int, Int> = boardSubIndex[squareIndex][i]
                     if(cell.first != row && cell.second != col){
                         candidates[gameBoard[cell.first][cell.second].value] += 1
@@ -115,17 +115,7 @@ class SudokuGenSolve{
 
 
     private fun resetBoard(){
-        gameBoard = arrayOf(
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-        )
+        gameBoard = Array(size){Array(size){SudokuCell(0)} }
     }
 
     /**
@@ -135,27 +125,27 @@ class SudokuGenSolve{
         var prevX: Int = 0
         var prevY: Int = 0
         var prevCand: Array<Int>? = null
-        var prevCandCardinal: Int = 10
+        var prevCandCardinal: Int = size + 1
 
-        for(row: Int in 0 until 9){
-            for(col: Int in 0 until 9){
+        for(row: Int in 0 until size){
+            for(col: Int in 0 until size){
                 // Is this spot unused
                 if(gameBoard[row][col].value == 0){
-                    var candidates: Array<Int> = arrayOf(0,1,2,3,4,5,6,7,8,9)
+                    var candidates: Array<Int> = Array(size + 1){it}
 
-                    for(i: Int in 0 until 9){
+                    for(i: Int in 0 until size){
                         candidates[gameBoard[i][col].value] = 0
                         candidates[gameBoard[row][i].value] = 0
                     }
 
                     var squareIndex: Int = squareIndexes[row][col]
-                    for(c: Int in 0 until 9){
+                    for(c: Int in 0 until size){
                         val cell: Pair<Int, Int> = boardSubIndex[squareIndex][c]
                         candidates[gameBoard[cell.first][cell.second].value] = 0
                     }
 
                     var cardinalityCandidates: Int = 0
-                    for(i: Int in 1..9){
+                    for(i: Int in 1..size){
                         if(candidates[i] != 0){
                             cardinalityCandidates += 1
                         }
@@ -172,7 +162,7 @@ class SudokuGenSolve{
         }
 
         // Finished?
-        if(prevCandCardinal == 10){
+        if(prevCandCardinal == size + 1){
             return Pair(true, gameBoard)
         }
         // Couldn't find a solution?
@@ -181,7 +171,7 @@ class SudokuGenSolve{
         }
 
         // Try elements
-        for(i: Int in 1..9){
+        for(i: Int in 1..size){
             if(prevCand != null && prevCand[i] != 0){
                 gameBoard[prevY][prevX].value = prevCand[i]
                 if(solve().first){
@@ -201,27 +191,27 @@ class SudokuGenSolve{
             var yRand: Int
 
             do{
-                xRand = Random.nextInt(0,9)
-                yRand = Random.nextInt(0, 9)
+                xRand = Random.nextInt(0,size)
+                yRand = Random.nextInt(0, size)
             }while(gameBoard[yRand][xRand].value != 0)
 
-            var candidates: Array<Int> = arrayOf(0,1,2,3,4,5,6,7,8,9)
+            var candidates: Array<Int> = Array(size + 1){it}
 
             // Remove used in vertical and horizontal directions
-            for(i: Int in 0 until 9){
+            for(i: Int in 0 until size){
                 candidates[gameBoard[i][xRand].value] = 0
                 candidates[gameBoard[yRand][i].value] = 0
             }
 
 
             var squareIndex: Int = squareIndexes[yRand][xRand]
-            for(c: Int in 0 until 9){
+            for(c: Int in 0 until size){
                 val cell: Pair<Int, Int> = boardSubIndex[squareIndex][c]
                 candidates[gameBoard[cell.first][cell.second].value] = 0
             }
 
             var cM: Int = 0
-            for(d: Int in 1 until 10){
+            for(d: Int in 1 until size + 1){
                 if(candidates[d] != 0){
                     cM += 1
                 }

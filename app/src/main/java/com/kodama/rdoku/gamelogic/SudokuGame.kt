@@ -8,7 +8,7 @@ import com.kodama.rdoku.model.SudokuCell
 import kotlin.random.Random
 import kotlin.system.measureTimeMillis
 
-class SudokuGame(private var context: Context?){
+class SudokuGame(private var context: Context?, val size: Int){
     var boardState = BoardState.Incomplete
 
     companion object{
@@ -30,21 +30,11 @@ class SudokuGame(private var context: Context?){
         var locked = false
     }
 
-    private var solvedBoard: Array<Array<SudokuCell>> = arrayOf(
-        Array(9){ SudokuCell(1) },
-        Array(9){ SudokuCell(1) },
-        Array(9){ SudokuCell(1) },
-        Array(9){ SudokuCell(1) },
-        Array(9){ SudokuCell(1) },
-        Array(9){ SudokuCell(1) },
-        Array(9){ SudokuCell(1) },
-        Array(9){ SudokuCell(1) },
-        Array(9){ SudokuCell(1) },
-    )
+    private var solvedBoard: Array<Array<SudokuCell>> = Array(size){Array(9){ SudokuCell(1) }}
 
     fun setNumberBoard(number: Int){
         if(selectedRow != -1 && selectedCol != -1 && !mainBoard[selectedRow - 1][selectedCol - 1].locked){
-            // Erase number on double click
+            // Erase number on double set
             if(mainBoard[selectedRow - 1][selectedCol - 1].value == number){
                 mainBoard[selectedRow - 1][selectedCol - 1].value = 0
             }
@@ -74,8 +64,8 @@ class SudokuGame(private var context: Context?){
     }
 
     fun debugSolve(){
-        for(i in 0 until 9){
-            for(j in 0 until 9){
+        for(i in 0 until size){
+            for(j in 0 until size){
                 mainBoard[i][j].value = solvedBoard[i][j].value
             }
         }
@@ -83,21 +73,22 @@ class SudokuGame(private var context: Context?){
 
 
     fun checkForComplete():Boolean{
-        for(i in 0 until 9){
-            for(j in 0 until 9){
+        for(i in 0 until size){
+            for(j in 0 until size){
                 if(mainBoard[i][j].value == 0){
                     return false
                 }
             }
         }
 
-        for(i in 0 until 9){
-            for(j in 0 until 9){
+        for(i in 0 until size){
+            for(j in 0 until size){
                 if(mainBoard[i][j].value != solvedBoard[i][j].value){
                     return false
                 }
             }
         }
+
         boardState = BoardState.Complete
         return true
     }
@@ -110,35 +101,25 @@ class SudokuGame(private var context: Context?){
 
         val mutableBoard: MutableList<Array<SudokuCell>> = mutableListOf()
 
-        for(i in 0 until 9){
-            val tempRow = arrayOf(
-                SudokuCell(0), SudokuCell(0), SudokuCell(0),
-                SudokuCell(0), SudokuCell(0), SudokuCell(0),
-                SudokuCell(0), SudokuCell(0), SudokuCell(0), )
+        for(i in 0 until size){
+            val tempRow = Array(size){SudokuCell(0)}
 
-            for(j in 0 until 9){
+            for(j in 0 until size){
                 tempRow[j].value = mainBoard[i][j].value
             }
             mutableBoard.add(tempRow)
         }
-        val tempBoard: Array<Array<SudokuCell>> = arrayOf(
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },)
+        val tempBoard: Array<Array<SudokuCell>> = Array(size){
+            Array(size){ SudokuCell(0) }
+        }
 
-        for(i in 0 until 9){
-            for(j in 0 until 9){
+        for(i in 0 until size){
+            for(j in 0 until size){
                 tempBoard[i][j].value = mutableBoard[i][j].value
             }
         }
 
-        val sudokuGenSolve = SudokuGenSolve()
+        val sudokuGenSolve = SudokuGenSolve(size)
         sudokuGenSolve.gameBoard = tempBoard
 
         val temp = sudokuGenSolve.solve()
@@ -151,7 +132,7 @@ class SudokuGame(private var context: Context?){
     }
 
     fun isValidNumber(number: Int):Boolean{
-        for(i: Int in 0 until 9){
+        for(i: Int in 0 until size){
             // Check column
             if(i != selectedCol - 1 && mainBoard[selectedRow - 1][i].value == number){
                 return false
@@ -167,13 +148,14 @@ class SudokuGame(private var context: Context?){
         val col = selectedCol - 1
 
         // Check block
-        for(i: Int in (row - (row % 3)) until (row - (row % 3) + 3)){
+        // TODO FIX FOR SIZE-NUMBERED PUZZLE, NOT ONLY FOR 9
+        /*for(i: Int in (row - (row % 3)) until (row - (row % 3) + 3)){
             for(j: Int in (col - (col % 3)) until (col - (col % 3) + 3)){
                 if(i != row && j != col && mainBoard[i][j].value == number){
                     return false
                 }
             }
-        }
+        }*/
         return true
     }
 
@@ -181,7 +163,7 @@ class SudokuGame(private var context: Context?){
     fun generateBoard(spots: Int){
         resetBoard()
         var tries = 0
-        val sudokuGenSolve = SudokuGenSolve()
+        val sudokuGenSolve = SudokuGenSolve(size)
 
         val msElapsed: Long = measureTimeMillis {
             val generatedBoard = sudokuGenSolve.generate(spots)
@@ -199,6 +181,7 @@ class SudokuGame(private var context: Context?){
     }
 
     // Sets board from resources (hardBoards.xml). Because it takes a long time to generate boards like these
+    // TODO FIX
     fun setHardBoard(){
         if(context != null){
             resetBoard()
@@ -223,8 +206,8 @@ class SudokuGame(private var context: Context?){
 
     private fun lockNumbers(){
         if(!locked){
-            for(i in 0 until 9){
-                for(j in 0 until 9){
+            for(i in 0 until size){
+                for(j in 0 until size){
                     mainBoard[i][j].locked = mainBoard[i][j].value != 0
                 }
             }
@@ -233,29 +216,29 @@ class SudokuGame(private var context: Context?){
     }
 
     private fun resetWrongNumbers(){
-        for(i in 0 until 9){
-            for(j in 0 until 9){
+        for(i in 0 until size){
+            for(j in 0 until size){
                 mainBoard[i][j].wrong = false
             }
         }
     }
 
-    fun numberUsedNineTimes(number: Int):Boolean{
+    fun fullyUsedNumber(number: Int):Boolean{
         if(number == 0){
             return false
         }
 
         var count = 0
 
-        for(i in 0 until 9){
-            for(j in 0 until 9){
+        for(i in 0 until size){
+            for(j in 0 until size){
                 if(mainBoard[i][j].value == number){
                     count += 1
                 }
             }
         }
 
-        if(count != 9){
+        if(count != size){
             return false
         }
 
@@ -263,16 +246,6 @@ class SudokuGame(private var context: Context?){
     }
 
     private fun resetBoard(){
-        mainBoard = arrayOf(
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-            Array(9){ SudokuCell(0) },
-        )
+        mainBoard = Array(size) {Array(size){ SudokuCell(0) }}
     }
 }

@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
 import android.widget.*
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import com.kodama.rdoku.customview.SudokuBoardView
@@ -15,8 +13,7 @@ import com.kodama.rdoku.gamelogic.BestTimeManager
 import com.kodama.rdoku.model.GameDifficulty
 import com.kodama.rdoku.gamelogic.SudokuGame
 import com.kodama.rdoku.model.BoardState
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
+import com.kodama.rdoku.model.GameType
 import kotlinx.coroutines.launch
 import java.io.Serializable
 import kotlin.random.Random
@@ -29,26 +26,40 @@ class GameActivity : AppCompatActivity(){
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-
         val bundle: Bundle? = intent.extras
 
         if(bundle != null){
             gameDifficulty = bundle.getSerializable("game_difficulty") as GameDifficulty
+            gameType = bundle.getSerializable("game_type") as GameType
         }
 
-        cmTimer = findViewById(R.id.cmTimer)
-        startGame()
+
+
+        size = when(gameType){
+            GameType.classic_9x9 -> 9
+            GameType.killer_sudoku -> 6
+        }
+
+
+        sudokuGame = SudokuGame(this, size)
+
         sudokuBoard = findViewById(R.id.sudokuBoard)
+
+        cmTimer = findViewById(R.id.cmTimer)
+
+        startGame()
+
 
         initPrefs()
     }
 
     lateinit var cmTimer: Chronometer
 
-    private var job = Job()
-    private val sudokuGame = SudokuGame(this)
+    private lateinit var sudokuGame: SudokuGame
     private lateinit var sudokuBoard: SudokuBoardView
     private lateinit var gameDifficulty: GameDifficulty
+    private lateinit var gameType: GameType
+    private var size = 9
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -96,7 +107,7 @@ class GameActivity : AppCompatActivity(){
         }
     }
 
-    fun startGame(){
+    private fun startGame(){
         when(gameDifficulty){
             GameDifficulty.Easy -> {
                 lifecycleScope.launch{
@@ -117,15 +128,16 @@ class GameActivity : AppCompatActivity(){
                 findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_hard)
             }
         }
+
         cmTimer.base = SystemClock.elapsedRealtime()
         cmTimer.start()
 
         enableGameKeyboard(true)
+        showNumbers()
     }
 
     override fun onDestroy() {
         cmTimer.stop()
-        job.cancel()
         super.onDestroy()
     }
 
@@ -238,9 +250,22 @@ class GameActivity : AppCompatActivity(){
         }
     }
 
-    // hiding numbers that have been used 9 times
+    private fun showNumbers(){
+        val gameKeyboard = findViewById<LinearLayout>(R.id.gameKeyboard)
+        for(i in 0 until gameKeyboard.childCount){
+            val btn = gameKeyboard.getChildAt(i) as Button
+            btn.visibility = View.INVISIBLE
+        }
+
+        for(i in 0 until size){
+            val btn = gameKeyboard.getChildAt(i) as Button
+            btn.visibility = View.VISIBLE
+        }
+    }
+
+    // hiding numbers that have been fully used
     private fun hideFullyUsedNumber(){
-        for(i in 1..9){
+        for(i in 1..size){
             val button: Button = when(i){
                 1 -> findViewById(R.id.btnOne)
                 2 -> findViewById(R.id.btnTwo)
@@ -253,7 +278,7 @@ class GameActivity : AppCompatActivity(){
                 9 -> findViewById(R.id.btnNine)
                 else -> return
             }
-            if(sudokuGame.numberUsedNineTimes(i)){
+            if(sudokuGame.fullyUsedNumber(i)){
                 button.visibility = View.INVISIBLE
             }
             else{

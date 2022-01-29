@@ -25,8 +25,9 @@
     <color name="dull_gray">#757579</color>
     <color name="light_gray">#a2a2a3</color>
 
-    <color name="card_top_color">#FFFFFF</color>
-    <color name="card_bottom_color">#84A6C9</color>
-    <color name="textColorPrimary">#252525</color>
-    <color name="card_tint">#252525</color>
+    <color name="card_top_color">#262A40</color>
+    <color name="card_bottom_color">#282929</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="card_tint">#E1E5EA</color>
+
 </resources>

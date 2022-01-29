@@ -8,7 +8,7 @@ import org.junit.Test
 class SudokuGenSolveUnitTest {
     @Test
     fun isSudokuFeasibleTest_True(){
-        val sudokuGenSolve = SudokuGenSolve()
+        val sudokuGenSolve = SudokuGenSolve(9)
         sudokuGenSolve.gameBoard = arrayOf(
             arrayOf(SudokuCell(1), SudokuCell(7), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0)),
             arrayOf(SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(2), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0)),
@@ -25,7 +25,7 @@ class SudokuGenSolveUnitTest {
 
     @Test
     fun solve_Test_True(){
-        val sudokuGenSolve = SudokuGenSolve()
+        val sudokuGenSolve = SudokuGenSolve(9)
         sudokuGenSolve.gameBoard = arrayOf(
             arrayOf(SudokuCell(1), SudokuCell(7), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0)),
             arrayOf(SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(2), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0)),
@@ -43,7 +43,7 @@ class SudokuGenSolveUnitTest {
 
     @Test
     fun isSudokuUnique_Test_True(){
-        val sudokuGenSolve = SudokuGenSolve()
+        val sudokuGenSolve = SudokuGenSolve(9)
         sudokuGenSolve.gameBoard = arrayOf(
             arrayOf(SudokuCell(1), SudokuCell(7), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0)),
             arrayOf(SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(2), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0), SudokuCell(0)),
@@ -61,7 +61,7 @@ class SudokuGenSolveUnitTest {
 
     @Test
     fun generating_Test(){
-        val sudokuGenSolve = SudokuGenSolve()
+        val sudokuGenSolve = SudokuGenSolve(9)
 
         sudokuGenSolve.generate(32)
         val unique = sudokuGenSolve.isSudokuUnique()

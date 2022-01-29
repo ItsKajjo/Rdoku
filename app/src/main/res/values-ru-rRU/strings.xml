@@ -5,15 +5,12 @@
     <string name="action_menu_restart">Рестарт</string>
     <string name="app_theme_title">Тема приложения</string>
     <string name="game_rules_header">Правила</string>
-    <string name="game_rules_text">Каждый квадрат 3x3 может содержать только числа от 1 до 9 без повторений\n
-        Каждая колонка и строка может содержать только числа от 1 до 9 без повторений\n
-        Судоку решена когда в каждой колонке, строке и квадрате 3x3 содержатся все числа от 1 до 9 без повторений</string>
+    <string name="game_rules_text">Каждый квадрат 3x3 может содержать только числа от 1 до 9 без повторений\nКаждая колонка и строка может содержать только числа от 1 до 9 без повторений\nСудоку решена когда в каждой колонке, строке и квадрате 3x3 содержатся все числа от 1 до 9 без повторений</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="appearance_header">Внешний вид</string>
     <string name="about_header">О чем-то</string>
     <string name="btn_new_game">Играть</string>
-    <string name="about_text">Это текст с информацией. Но информации как таковой тут и нет, писать то не очем.\n
-        Но вот мой GitHub</string>
+    <string name="about_text">Это текст с информацией. Но информации как таковой тут и нет, писать то не о чем.\nНо вот мой GitHub</string>
     <string name="difficulty_easy">Легко</string>
     <string name="difficulty_moderate">Средне</string>
     <string name="difficulty_hard">Сложно</string>
@@ -38,4 +35,9 @@
     <string name="easy_reset_success">Лучшее время для легкого уровня сложности сброшено</string>
     <string name="moderate_reset_success">Лучшее время для среднего уровня сложности сброшено</string>
     <string name="hard_reset_success">Лучшее время для сложного уровня сложности сброшено</string>
+    <string name="solve">Решить</string>
+    <string name="btn_play">Играть</string>
+    <string name="classic_mode_9x9">Классический режим 9x9</string>
+    <string name="killer_sudoku">Киллер судоку</string>
+    <string name="in_dev">В разработке! Скоро...</string>
 </resources>

@@ -43,7 +43,7 @@
             android:id="@+id/tvRulesHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/comfortaa_bold"
+            android:fontFamily="@font/montserrat"
             android:layout_marginStart="4dp"
             android:text="@string/game_rules_header"
             android:textSize="24sp" />
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:fontFamily="@font/comfortaa_regular"
+            android:fontFamily="@font/montserrat"
             android:text="@string/game_rules_text"
             android:textSize="16sp" />
     </LinearLayout>
@@ -72,9 +72,9 @@
             android:id="@+id/tvAboutHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/comfortaa_bold"
+            android:fontFamily="@font/montserrat"
             android:textSize="24sp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:text="@string/about_header" />
 
         <TextView
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:fontFamily="@font/comfortaa_regular"
+            android:fontFamily="@font/montserrat"
             android:textSize="16sp"
             android:text="@string/about_text" />
 
@@ -106,19 +106,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/comfortaa_regular"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:text="@string/github_link_developer"
                 android:layout_gravity="center"/>
         </LinearLayout>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvVersionState"
+        android:id="@+id/tvVersionNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="13sp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
         android:text="@string/app_version_text"
+        android:fontFamily="@font/montserrat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     <TextView
@@ -126,7 +127,8 @@
         android:layout_height="wrap_content"
         android:text="@string/app_version_number"
         android:textSize="13sp"
-        android:layout_marginStart="6dp"
-        app:layout_constraintStart_toEndOf="@id/tvVersionState"
-        app:layout_constraintBottom_toBottomOf="@id/tvVersionState"/>
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/montserrat"
+        app:layout_constraintStart_toEndOf="@id/tvVersionNumber"
+        app:layout_constraintBottom_toBottomOf="@id/tvVersionNumber"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

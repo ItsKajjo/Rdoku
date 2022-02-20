@@ -2,5 +2,5 @@ package com.kodama.rdoku.model
 
 enum class GameType {
     classic_9x9,
-    killer_sudoku,
+    classic_6x6,
 }

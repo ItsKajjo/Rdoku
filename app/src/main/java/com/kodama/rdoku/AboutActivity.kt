@@ -15,6 +15,8 @@ class AboutActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(true)
 
         findViewById<TextView>(R.id.tvGitHubLink).movementMethod = LinkMovementMethod.getInstance()
+
+        findViewById<TextView>(R.id.tvVersionNumber).text = BuildConfig.VERSION_NAME
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import com.kodama.rdoku.R
 import com.kodama.rdoku.model.BoardState
+import com.kodama.rdoku.model.GameDifficulty
+import com.kodama.rdoku.model.GameType
 import com.kodama.rdoku.model.SudokuCell
 import kotlin.random.Random
 import kotlin.system.measureTimeMillis
@@ -94,106 +96,50 @@ class SudokuGame(private var context: Context?, val size: Int){
     }
 
     private fun solveBoard(){
-        // lmao I know how terrible it looks
-        // but I don't know how to do it better..
-        // companion objects are the worst thing I've seen
-        // some shit with memory addresses
-
-        val mutableBoard: MutableList<Array<SudokuCell>> = mutableListOf()
-
-        for(i in 0 until size){
-            val tempRow = Array(size){SudokuCell(0)}
-
-            for(j in 0 until size){
-                tempRow[j].value = mainBoard[i][j].value
-            }
-            mutableBoard.add(tempRow)
-        }
-        val tempBoard: Array<Array<SudokuCell>> = Array(size){
-            Array(size){ SudokuCell(0) }
-        }
-
-        for(i in 0 until size){
-            for(j in 0 until size){
-                tempBoard[i][j].value = mutableBoard[i][j].value
-            }
-        }
-
-        val sudokuGenSolve = SudokuGenSolve(size)
-        sudokuGenSolve.gameBoard = tempBoard
-
-        val temp = sudokuGenSolve.solve()
-
-        if(temp.first){
-            solvedBoard = temp.second
-        }
+        val solver = Solver()
+        solvedBoard = solver.solve(mainBoard, size)
 
         resetWrongNumbers()
     }
 
     fun isValidNumber(number: Int):Boolean{
-        for(i: Int in 0 until size){
-            // Check column
-            if(i != selectedCol - 1 && mainBoard[selectedRow - 1][i].value == number){
-                return false
-            }
-            // Check row
-            if(i != selectedRow - 1 && mainBoard[i][selectedCol - 1].value == number){
-                return false
-            }
-        }
-
-        // Just for better readability
-        val row = selectedRow - 1
-        val col = selectedCol - 1
-
-        // Check block
-        // TODO FIX FOR SIZE-NUMBERED PUZZLE, NOT ONLY FOR 9
-        /*for(i: Int in (row - (row % 3)) until (row - (row % 3) + 3)){
-            for(j: Int in (col - (col % 3)) until (col - (col % 3) + 3)){
-                if(i != row && j != col && mainBoard[i][j].value == number){
-                    return false
-                }
-            }
-        }*/
-        return true
+        val solver = Solver()
+        return solver.validMove(selectedRow - 1, selectedCol - 1, number,  mainBoard, size)
     }
 
 
-    fun generateBoard(spots: Int){
-        resetBoard()
-        var tries = 0
-        val sudokuGenSolve = SudokuGenSolve(size)
-
-        val msElapsed: Long = measureTimeMillis {
-            val generatedBoard = sudokuGenSolve.generate(spots)
-            if(generatedBoard.first){
-                mainBoard = generatedBoard.second
-                tries = generatedBoard.third
-            }
-        }
-
-        Log.d("GenerateBoard", "Board Generated! Time elapsed: $msElapsed ms, $tries tries")
-        solveBoard()
-
-        locked = false
-        lockNumbers()
-    }
-
-    // Sets board from resources (hardBoards.xml). Because it takes a long time to generate boards like these
-    // TODO FIX
-    fun setHardBoard(){
+    // sets board from resources
+    fun setBoard(difficulty: GameDifficulty, gameType: GameType){
         if(context != null){
             resetBoard()
-            val hardBoards: Array<String> = context!!.resources.getStringArray(R.array.hardBoards)
 
-            val selectedBoard: String = hardBoards[Random.nextInt(0, hardBoards.lastIndex)]
-            var stringIndex = 0
+            var boards: Array<String> = context!!.resources.getStringArray(R.array.easyBoards9x9)
 
-            for(i in 0 until 9){
-                for(j in 0 until 9){
-                    mainBoard[i][j].value = selectedBoard[stringIndex].digitToInt()
-                    stringIndex += 1
+            if(gameType == GameType.classic_9x9){
+                boards = when(difficulty){
+                    GameDifficulty.Easy ->{
+                        context!!.resources.getStringArray(R.array.easyBoards9x9)
+                    }
+
+                    GameDifficulty.Moderate ->{
+                        context!!.resources.getStringArray(R.array.moderateBoards9x9)
+                    }
+
+                    GameDifficulty.Hard ->{
+                        context!!.resources.getStringArray(R.array.hardBoards9x9)
+                    }
+                }
+            }
+
+            else if(gameType == GameType.classic_6x6){
+                boards = context!!.resources.getStringArray(R.array.easyBoards6x6)
+            }
+
+            val selectedBoard: String = boards[Random.nextInt(0, boards.size)]
+
+            for(i in 0 until size){
+                for(j in 0 until size){
+                    mainBoard[i][j].value = selectedBoard[i * size + j].digitToInt()
                 }
             }
 
@@ -246,6 +192,6 @@ class SudokuGame(private var context: Context?, val size: Int){
     }
 
     private fun resetBoard(){
-        mainBoard = Array(size) {Array(size){ SudokuCell(0) }}
+        mainBoard = Array(9) {Array(9){ SudokuCell(0) }}
     }
 }

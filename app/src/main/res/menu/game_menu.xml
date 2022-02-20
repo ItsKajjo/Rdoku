@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/restart_menu"
-        android:title="@string/action_menu_restart"
-        android:icon="@drawable/ic_restart_24dp"/>
+        android:title="@string/action_menu_new_game"
+        android:icon="@drawable/ic_restart_alt_black_48dp"/>
     <item
         android:id="@+id/about_menu"
         android:title="@string/game_menu_about"

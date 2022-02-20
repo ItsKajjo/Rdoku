@@ -25,7 +25,7 @@
             android:id="@+id/tvDifficulty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Moderate"
+            android:text=""
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/sudokuBoard"
             app:layout_constraintStart_toStartOf="parent" />
@@ -66,12 +66,14 @@
         style="@style/SudokuBoard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:scaleX="0.96"
+        android:scaleY="0.96"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.399" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <LinearLayout
         android:id="@+id/gameKeyboard"

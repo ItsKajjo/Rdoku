@@ -29,4 +29,6 @@
     <color name="card_bottom_color">#84A6C9</color>
     <color name="textColorPrimary">#252525</color>
     <color name="card_tint">#252525</color>
+
+    <color name="alert_dialog_button_text">@color/black</color>
 </resources>

@@ -113,7 +113,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvVersionNumber"
+        android:id="@+id/tvVersionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="13sp"
@@ -123,12 +123,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     <TextView
+        android:id="@+id/tvVersionNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_version_number"
         android:textSize="13sp"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/montserrat"
-        app:layout_constraintStart_toEndOf="@id/tvVersionNumber"
-        app:layout_constraintBottom_toBottomOf="@id/tvVersionNumber"/>
+        app:layout_constraintStart_toEndOf="@id/tvVersionText"
+        app:layout_constraintBottom_toBottomOf="@id/tvVersionText"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

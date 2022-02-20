@@ -11,6 +11,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.kodama.rdoku.gamelogic.BestTimeManager
 import com.kodama.rdoku.model.GameDifficulty
+import com.kodama.rdoku.model.GameType
 
 class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener{
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,19 +31,22 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
 
         findViewById<Button>(R.id.btnPrefResetEasy).setOnClickListener {
             val bestTimeManager = BestTimeManager(this)
-            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Easy)
+            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Easy, GameType.classic_9x9)
+            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Easy, GameType.classic_6x6)
             Toast.makeText(this, getString(R.string.easy_reset_success), Toast.LENGTH_SHORT).show()
         }
 
         findViewById<Button>(R.id.btnPrefResetModerate).setOnClickListener {
             val bestTimeManager = BestTimeManager(this)
-            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Moderate)
+            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Moderate, GameType.classic_9x9)
+            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Moderate, GameType.classic_6x6)
             Toast.makeText(this, getString(R.string.moderate_reset_success), Toast.LENGTH_SHORT).show()
         }
 
         findViewById<Button>(R.id.btnPrefResetHard).setOnClickListener {
             val bestTimeManager = BestTimeManager(this)
-            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Hard)
+            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Hard, GameType.classic_9x9)
+            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Hard, GameType.classic_6x6)
             Toast.makeText(this, getString(R.string.hard_reset_success), Toast.LENGTH_SHORT).show()
         }
     }

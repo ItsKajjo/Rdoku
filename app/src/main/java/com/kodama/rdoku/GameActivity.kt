@@ -1,12 +1,14 @@
 package com.kodama.rdoku
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
 import android.widget.*
-import androidx.lifecycle.lifecycleScope
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.setPadding
 import androidx.preference.PreferenceManager
 import com.kodama.rdoku.customview.SudokuBoardView
 import com.kodama.rdoku.gamelogic.BestTimeManager
@@ -14,9 +16,7 @@ import com.kodama.rdoku.model.GameDifficulty
 import com.kodama.rdoku.gamelogic.SudokuGame
 import com.kodama.rdoku.model.BoardState
 import com.kodama.rdoku.model.GameType
-import kotlinx.coroutines.launch
 import java.io.Serializable
-import kotlin.random.Random
 
 class GameActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,25 +30,24 @@ class GameActivity : AppCompatActivity(){
 
         if(bundle != null){
             gameDifficulty = bundle.getSerializable("game_difficulty") as GameDifficulty
-            gameType = bundle.getSerializable("game_type") as GameType
+            gameType = bundle.getSerializable("game_type") as? GameType
         }
-
-
 
         size = when(gameType){
             GameType.classic_9x9 -> 9
-            GameType.killer_sudoku -> 6
+            GameType.classic_6x6 -> 6
+            else -> 9
         }
 
 
         sudokuGame = SudokuGame(this, size)
 
         sudokuBoard = findViewById(R.id.sudokuBoard)
+        sudokuBoard.size = size
 
         cmTimer = findViewById(R.id.cmTimer)
 
         startGame()
-
 
         initPrefs()
     }
@@ -58,7 +57,7 @@ class GameActivity : AppCompatActivity(){
     private lateinit var sudokuGame: SudokuGame
     private lateinit var sudokuBoard: SudokuBoardView
     private lateinit var gameDifficulty: GameDifficulty
-    private lateinit var gameType: GameType
+    private var gameType: GameType? = null
     private var size = 9
 
 
@@ -84,9 +83,7 @@ class GameActivity : AppCompatActivity(){
                 true
             }
             R.id.solve_menu ->{
-                sudokuGame.debugSolve()
-                enableGameKeyboard(false)
-                sudokuBoard.invalidate()
+                showAlertDialogGiveUp()
                 true
             }
             else -> {
@@ -108,32 +105,19 @@ class GameActivity : AppCompatActivity(){
     }
 
     private fun startGame(){
+        val tvDifficulty = findViewById<TextView>(R.id.tvDifficulty)
         when(gameDifficulty){
-            GameDifficulty.Easy -> {
-                lifecycleScope.launch{
-                    sudokuGame.generateBoard(Random.nextInt(29, 34))
-                }
-                findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_easy)
-            }
-
-            GameDifficulty.Moderate -> {
-                lifecycleScope.launch{
-                    sudokuGame.generateBoard(Random.nextInt(26, 29))
-                }
-                findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_moderate)
-            }
-
-            GameDifficulty.Hard ->{
-                sudokuGame.setHardBoard()
-                findViewById<TextView>(R.id.tvDifficulty).text = getString(R.string.difficulty_hard)
-            }
+            GameDifficulty.Easy -> tvDifficulty.text = getString(R.string.difficulty_easy)
+            GameDifficulty.Moderate -> tvDifficulty.text = getString(R.string.difficulty_moderate)
+            GameDifficulty.Hard -> tvDifficulty.text = getString(R.string.difficulty_hard)
         }
+        sudokuGame.setBoard(gameDifficulty, gameType ?: GameType.classic_9x9)
 
         cmTimer.base = SystemClock.elapsedRealtime()
         cmTimer.start()
 
         enableGameKeyboard(true)
-        showNumbers()
+        sudokuBoard.invalidate()
     }
 
     override fun onDestroy() {
@@ -171,7 +155,7 @@ class GameActivity : AppCompatActivity(){
 
         val bestTimeManager = BestTimeManager(this)
 
-        var bestTime = bestTimeManager.getBestTime(gameDifficulty)
+        var bestTime = bestTimeManager.getBestTime(gameDifficulty, gameType ?: GameType.classic_9x9)
         var bestSeconds = bestTime.first
         var bestMinutes = bestTime.second
 
@@ -188,11 +172,11 @@ class GameActivity : AppCompatActivity(){
             prevBestSeconds = bestSeconds
             prevBestMinutes = bestMinutes
 
-            bestTimeManager.saveBestTime(seconds, minutes, gameDifficulty)
+            bestTimeManager.saveBestTime(seconds, minutes, gameDifficulty, gameType ?: GameType.classic_9x9)
             isNewBestTime = true
         }
 
-        bestTime = bestTimeManager.getBestTime(gameDifficulty)
+        bestTime = bestTimeManager.getBestTime(gameDifficulty,gameType ?: GameType.classic_9x9)
 
         bestSeconds = bestTime.first
         bestMinutes = bestTime.second
@@ -212,7 +196,27 @@ class GameActivity : AppCompatActivity(){
         intent.putExtra("first_best_time", isFirstBestTime)
 
         intent.putExtra("game_difficulty", gameDifficulty as Serializable)
+        intent.putExtra("game_type", gameType as Serializable)
         startActivity(intent)
+    }
+
+    private fun showAlertDialogGiveUp(){
+        val builder = AlertDialog.Builder(this).setTitle(R.string.give_up_alert_title)
+            .setMessage(R.string.give_up_alert_text)
+            .setPositiveButton(R.string.give_up_alert_positive){ _, _ ->
+                sudokuGame.debugSolve()
+                enableGameKeyboard(false)
+                sudokuBoard.invalidate()
+            }
+            .setNegativeButton(R.string.give_up_alert_negative){ dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val alert = builder.create()
+        alert.show()
+
+        alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getColor(R.color.alert_dialog_button_text))
+        alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getColor(R.color.alert_dialog_button_text))
     }
 
     // initializing preferences
@@ -250,16 +254,20 @@ class GameActivity : AppCompatActivity(){
         }
     }
 
-    private fun showNumbers(){
+    private fun enableGameKeyboard(isVisible: Boolean){
+        val visibility: Int = if(isVisible){
+            View.VISIBLE
+        } else{
+            View.GONE
+        }
+
         val gameKeyboard = findViewById<LinearLayout>(R.id.gameKeyboard)
         for(i in 0 until gameKeyboard.childCount){
             val btn = gameKeyboard.getChildAt(i) as Button
-            btn.visibility = View.INVISIBLE
-        }
-
-        for(i in 0 until size){
-            val btn = gameKeyboard.getChildAt(i) as Button
-            btn.visibility = View.VISIBLE
+            btn.visibility = visibility
+            if(i >= size){
+                btn.visibility = View.GONE
+            }
         }
     }
 
@@ -279,27 +287,13 @@ class GameActivity : AppCompatActivity(){
                 else -> return
             }
             if(sudokuGame.fullyUsedNumber(i)){
-                button.visibility = View.INVISIBLE
+                button.visibility = View.GONE
             }
             else{
-                if(button.visibility == View.INVISIBLE){
+                if(button.visibility == View.GONE){
                     button.visibility = View.VISIBLE
                 }
             }
-        }
-    }
-
-    private fun enableGameKeyboard(isVisible: Boolean){
-        val visibility: Int = if(isVisible){
-            View.VISIBLE
-        } else{
-            View.INVISIBLE
-        }
-
-        val gameKeyboard = findViewById<LinearLayout>(R.id.gameKeyboard)
-        for(i in 0 until gameKeyboard.childCount){
-            val btn = gameKeyboard.getChildAt(i) as Button
-            btn.visibility = visibility
         }
     }
 }

@@ -52,8 +52,8 @@
         <item name="boardColor">@color/not_really_dark_gray</item>
         <item name="highlightColor">@color/night_blue</item>
         <item name="cellFillColor">@color/deep_sea_blue</item>
-        <item name="numberColor">@color/dull_gray</item>
-        <item name="lockedNumColor">@color/light_gray</item>
+        <item name="numberColor">#DFE0E1</item>
+        <item name="lockedNumColor">#C3C3C3</item>
         <item name="collisionNumberColor">@color/bright_red</item>
     </style>
 </resources>

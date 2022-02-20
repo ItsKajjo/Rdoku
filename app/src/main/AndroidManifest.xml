@@ -11,7 +11,8 @@
         android:theme="@style/Theme.RDOKU">
         <activity
             android:name=".CompleteActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AboutActivity"
             android:exported="false"

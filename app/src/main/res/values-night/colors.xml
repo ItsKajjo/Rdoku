@@ -30,4 +30,5 @@
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="card_tint">#E1E5EA</color>
 
+    <color name="alert_dialog_button_text">@color/pensive_gray</color>
 </resources>

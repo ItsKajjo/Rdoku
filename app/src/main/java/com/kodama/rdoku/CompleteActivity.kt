@@ -6,10 +6,13 @@ import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
 import com.kodama.rdoku.model.GameDifficulty
+import com.kodama.rdoku.model.GameType
 import java.io.Serializable
 
 class CompleteActivity : AppCompatActivity() {
     lateinit var currentGameDifficulty: GameDifficulty
+    lateinit var currentGameType: GameType
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_complete)
@@ -18,8 +21,9 @@ class CompleteActivity : AppCompatActivity() {
 
         findViewById<ImageButton>(R.id.btnCompleteRestart).setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
-            intent.putExtra("game_difficulty", currentGameDifficulty as Serializable)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra("game_difficulty", currentGameDifficulty as Serializable)
+            intent.putExtra("game_type", currentGameType as Serializable)
             startActivity(intent)
         }
 
@@ -46,6 +50,12 @@ class CompleteActivity : AppCompatActivity() {
                 }
             findViewById<TextView>(R.id.tvCompleteDifficulty).text = getString(R.string.complete_difficulty, difficultyText)
 
+            currentGameType = extras.getSerializable("game_type") as GameType
+
+            findViewById<TextView>(R.id.tvCompleteGameType).text = when(currentGameType){
+                GameType.classic_9x9 -> getString(R.string.classic_9x9)
+                GameType.classic_6x6 -> getString(R.string.classic_6x6)
+            }
 
             // time to complete
             val timeMinutes = extras.getLong("time_minutes", 0L).toString()

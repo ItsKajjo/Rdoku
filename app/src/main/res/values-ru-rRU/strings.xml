@@ -39,7 +39,6 @@
     <string name="btn_play">Играть</string>
     <string name="classic_9x9">Классический 9x9</string>
     <string name="classic_6x6">Классический 6x6</string>
-    <string name="in_dev">В разработке! Скоро...</string>
     <string name="give_up_alert_title">Вы хотите сдаться?</string>
     <string name="give_up_alert_text">Все клетки будут заполены верными цифрами. Но для того, чтобы выиграть вам нужно будет убрать цифру в любой из клеток и поставить ее обратно. Это сделано для того, чтобы вы могли увидеть решение, иначе смысла в этом не будет</string>
     <string name="give_up_alert_positive">Да</string>

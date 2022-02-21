@@ -6,13 +6,6 @@ P.S I hope your eyes not bleed in result of my english grammar...
   <b>WARNING!</b> There are some emojis in app 😨
    <br>I don't have much free time but I will try to keep the app up to date and add new features ❤️
 </p>
-    Plans:
-    <ul>
-      <li>Optimize level creating</li>
-      <li>6x6 mode</li>
-      <li>Remake sudoku board view</li>
-      <li>Landscape mode</li>
-    </ul>
 <div>
 <p align=center>
   <p>

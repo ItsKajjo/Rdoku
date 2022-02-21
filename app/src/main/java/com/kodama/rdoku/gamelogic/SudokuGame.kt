@@ -8,7 +8,6 @@ import com.kodama.rdoku.model.GameDifficulty
 import com.kodama.rdoku.model.GameType
 import com.kodama.rdoku.model.SudokuCell
 import kotlin.random.Random
-import kotlin.system.measureTimeMillis
 
 class SudokuGame(private var context: Context?, val size: Int){
     var boardState = BoardState.Incomplete

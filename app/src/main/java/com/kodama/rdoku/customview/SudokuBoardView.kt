@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.*
-import android.preference.PreferenceManager
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import androidx.preference.PreferenceManager
 import com.kodama.rdoku.R
 import com.kodama.rdoku.gamelogic.SudokuGame
 import kotlin.math.ceil
@@ -32,7 +32,7 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
 
     private var isIdenticalNumHighlighted = true
 
-    var size: Int = 6
+    var gridSize: Int = 9
 
     init {
         if(context != null && attrs != null){
@@ -59,7 +59,7 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
         val height = MeasureSpec.getSize(heightMeasureSpec)
         val dimension: Int = Math.min(width, height)
 
-        cellSize = dimension / size
+        cellSize = dimension / gridSize
         setMeasuredDimension(dimension, dimension)
     }
 
@@ -105,6 +105,7 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
             SudokuGame.selectedRow = ceil(event.y / cellSize).toInt()
             SudokuGame.selectedCol = ceil(event.x / cellSize).toInt()
 
+            invalidate()
             return true
         }
 
@@ -113,8 +114,8 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
 
     private fun drawText(canvas: Canvas?){
 
-        for(row: Int in 0 until size){
-            for(col: Int in 0 until size){
+        for(row: Int in 0 until gridSize){
+            for(col: Int in 0 until gridSize){
                 if(SudokuGame.mainBoard[row][col].value != 0){
                     val text: String = SudokuGame.mainBoard[row][col].value.toString()
 
@@ -144,24 +145,21 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
             && SudokuGame.selectedRow != -1 && SudokuGame.selectedCol != -1){
             // Paint column
             canvas.drawRect((col - 1f) * cellSize, 0f,
-                (col * cellSize).toFloat(), (cellSize * size).toFloat(), highlightColorPaint)
+                (col * cellSize).toFloat(), (cellSize * gridSize).toFloat(), highlightColorPaint)
 
             // Paint row
             canvas.drawRect(0f, (row - 1f) * cellSize,
-                (cellSize * size).toFloat(), (row * cellSize).toFloat(), highlightColorPaint)
+                (cellSize * gridSize).toFloat(), (row * cellSize).toFloat(), highlightColorPaint)
 
             // Paint tapped cell
             canvas.drawRect((col - 1f) * cellSize, (row - 1f) * cellSize,
                 (col * cellSize).toFloat(), (row * cellSize).toFloat(), highlightColorPaint)
         }
-
-        // Update view
-        invalidate()
     }
 
     private fun drawBoard(canvas: Canvas?){
         // Draw vertical lines
-        for(col in 0..size){
+        for(col in 0..gridSize){
             if(col % 3 == 0){
                 setThickLine()
             }
@@ -173,8 +171,8 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
         }
 
         // Draw horizontal lines
-        for(row in 0..size){
-            if(row % sqrt(size.toDouble()).toInt() == 0){
+        for(row in 0..gridSize){
+            if(row % sqrt(gridSize.toDouble()).toInt() == 0){
                 setThickLine()
             }
             else{
@@ -190,8 +188,8 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
         val row = SudokuGame.selectedRow
         val col = SudokuGame.selectedCol
         if(row > 0 && col > 0){
-            for(i in 0 until size){
-                for(j in 0 until size){
+            for(i in 0 until gridSize){
+                for(j in 0 until gridSize){
                     if(SudokuGame.mainBoard[i][j].value == 0){
                         continue
                     }
@@ -208,13 +206,13 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
 
     private fun setThickLine(){
         boardColorPaint.style = Paint.Style.STROKE
-        boardColorPaint.strokeWidth = (size + (size / 2)).toFloat()
+        boardColorPaint.strokeWidth = (gridSize + (gridSize / 2)).toFloat()
         boardColorPaint.color = boardColor
     }
 
     private fun setThinLine(){
         boardColorPaint.style = Paint.Style.STROKE
-        boardColorPaint.strokeWidth = ((size + (size / 2) + 2) / 2).toFloat()
+        boardColorPaint.strokeWidth = ((gridSize + (gridSize / 2) + 2) / 2).toFloat()
         boardColorPaint.color = boardColor
     }
 }

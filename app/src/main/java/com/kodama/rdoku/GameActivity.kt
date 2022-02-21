@@ -8,7 +8,6 @@ import android.os.SystemClock
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.setPadding
 import androidx.preference.PreferenceManager
 import com.kodama.rdoku.customview.SudokuBoardView
 import com.kodama.rdoku.gamelogic.BestTimeManager
@@ -43,7 +42,7 @@ class GameActivity : AppCompatActivity(){
         sudokuGame = SudokuGame(this, size)
 
         sudokuBoard = findViewById(R.id.sudokuBoard)
-        sudokuBoard.size = size
+        sudokuBoard.gridSize = size
 
         cmTimer = findViewById(R.id.cmTimer)
 

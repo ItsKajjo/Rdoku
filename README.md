@@ -9,9 +9,9 @@ P.S I hope your eyes not bleed in result of my english grammar...
 <div>
 <p align=center>
   <p>
-    <img src="readme_images/menu.png" width=300>
-    <img src="readme_images/ingame.png" width=300>
-    <img src="readme_images/complete.png" width=300>
+    <img src="readme_images/menu.png" width=250>
+    <img src="readme_images/ingame.png" width=250>
+    <img src="readme_images/complete.png" width=250>
   </p>
 </p>
 </div>

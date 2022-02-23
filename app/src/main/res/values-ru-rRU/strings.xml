@@ -41,6 +41,15 @@
     <string name="classic_6x6">Классический 6x6</string>
     <string name="give_up_alert_title">Вы хотите сдаться?</string>
     <string name="give_up_alert_text">Все клетки будут заполены верными цифрами. Но для того, чтобы выиграть вам нужно будет убрать цифру в любой из клеток и поставить ее обратно. Это сделано для того, чтобы вы могли увидеть решение, иначе смысла в этом не будет</string>
-    <string name="give_up_alert_positive">Да</string>
-    <string name="give_up_alert_negative">Нет</string>
+    <string name="alert_dialog_yes">Да</string>
+    <string name="alert_dialog_no">Нет</string>
+    <string name="stats_title">Статистика</string>
+    <string name="stats_overall_title">Общая</string>
+    <string name="stats_games_started">Игр начато</string>
+    <string name="stats_games_completed">Игр завершено</string>
+    <string name="stats_comp_rate">Завершено%</string>
+    <string name="stats_menu_reset_all">Сбросить все</string>
+    <string name="reset_stats_alert_title">Сбросить всю статистику?</string>
+    <string name="reset_stats_alert_message">Вся ваша статистика будет сброшена! Вы точно хотите продолжить?</string>
+    <string name="stats_best_time_title">Лучшее время</string>
 </resources>

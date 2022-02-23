@@ -50,4 +50,9 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, AboutActivity::class.java)
         startActivity(intent)
     }
+
+    fun onStatsClick(view: View){
+        val intent = Intent(this, StatsActivity::class.java)
+        startActivity(intent)
+    }
 }

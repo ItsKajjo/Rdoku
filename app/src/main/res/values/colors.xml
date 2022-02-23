@@ -31,4 +31,5 @@
     <color name="card_tint">#252525</color>
 
     <color name="alert_dialog_button_text">@color/black</color>
+    <color name="divider_line_color">@color/not_really_dark_gray</color>
 </resources>

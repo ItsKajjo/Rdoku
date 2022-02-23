@@ -52,6 +52,12 @@
             android:layout_marginStart="12dp"
             app:srcCompat="@drawable/ic_info_24dp"
             android:onClick="onAboutClick"/>
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="12dp"
+            app:srcCompat="@drawable/ic_stats_24dp"
+            android:onClick="onStatsClick"/>
     </LinearLayout>
 
 

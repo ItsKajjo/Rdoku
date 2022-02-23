@@ -10,9 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RDOKU">
         <activity
+            android:name=".StatsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.RDOKU.ActionBar"/>
+        <activity
             android:name=".CompleteActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AboutActivity"
             android:exported="false"

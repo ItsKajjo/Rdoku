@@ -78,6 +78,27 @@
     <!-- Give up alert dialog -->
     <string name="give_up_alert_title">Do you want to give up?</string>
     <string name="give_up_alert_text">All cells will be filled with the correct numbers. But in order to win you will need to remove the number in any cell and put it back. This made in order that you can see the solution, otherwise it won\'t make sense</string>
-    <string name="give_up_alert_positive">Yes</string>
-    <string name="give_up_alert_negative">No</string>
+
+    <!-- Stats Activity -->
+    <string name="stats_title">Statistics</string>
+    <string name="stats_overall_title">Overall</string>
+    <string name="stats_best_time_title">Best time</string>
+    <string name="stats_games_started">Games started</string>
+    <string name="stats_games_completed">Games completed</string>
+    <string name="stats_comp_rate">Completed%</string>
+    <string name="stats_comp_rate_placeholder" translatable="false">%1$s%%</string>
+
+    <!-- Stats reset alert dialog-->
+    <string name="reset_stats_alert_title">Do you want to reset all stats?</string>
+    <string name="reset_stats_alert_message">It will reset all your statistics! Do you really want to continue?</string>
+
+    <!-- Stats menu items -->
+    <string name="stats_menu_reset_all">Reset all</string>
+
+    <!-- Some general stuff -->
+    <string name="mmss_time_placeholder" translatable="false">%1$s:%2$s</string>
+    <string name="no_best" translatable="false">--</string>
+
+    <string name="alert_dialog_yes">Yes</string>
+    <string name="alert_dialog_no">No</string>
 </resources>

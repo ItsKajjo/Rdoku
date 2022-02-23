@@ -117,6 +117,12 @@ class GameActivity : AppCompatActivity(){
 
         enableGameKeyboard(true)
         sudokuBoard.invalidate()
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val editor = prefs.edit()
+
+        editor.putInt("games_started", prefs.getInt("games_started", 0) + 1)
+        editor.apply()
     }
 
     override fun onDestroy() {
@@ -202,12 +208,12 @@ class GameActivity : AppCompatActivity(){
     private fun showAlertDialogGiveUp(){
         val builder = AlertDialog.Builder(this).setTitle(R.string.give_up_alert_title)
             .setMessage(R.string.give_up_alert_text)
-            .setPositiveButton(R.string.give_up_alert_positive){ _, _ ->
+            .setPositiveButton(R.string.alert_dialog_yes){ _, _ ->
                 sudokuGame.debugSolve()
                 enableGameKeyboard(false)
                 sudokuBoard.invalidate()
             }
-            .setNegativeButton(R.string.give_up_alert_negative){ dialog, _ ->
+            .setNegativeButton(R.string.alert_dialog_no){ dialog, _ ->
                 dialog.dismiss()
             }
 
@@ -249,6 +255,11 @@ class GameActivity : AppCompatActivity(){
 
     private fun checkForComplete(){
         if(sudokuGame.checkForComplete()){
+            val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+            val editor = prefs.edit()
+            editor.putInt("games_completed", prefs.getInt("games_completed", 0) + 1)
+            editor.apply()
+
             showCompleteActivity(cmTimer)
         }
     }

@@ -28,27 +28,6 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         supportActionBar?.setTitle(R.string.title_activity_settings)
 
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this)
-
-        findViewById<Button>(R.id.btnPrefResetEasy).setOnClickListener {
-            val bestTimeManager = BestTimeManager(this)
-            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Easy, GameType.classic_9x9)
-            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Easy, GameType.classic_6x6)
-            Toast.makeText(this, getString(R.string.easy_reset_success), Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<Button>(R.id.btnPrefResetModerate).setOnClickListener {
-            val bestTimeManager = BestTimeManager(this)
-            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Moderate, GameType.classic_9x9)
-            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Moderate, GameType.classic_6x6)
-            Toast.makeText(this, getString(R.string.moderate_reset_success), Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<Button>(R.id.btnPrefResetHard).setOnClickListener {
-            val bestTimeManager = BestTimeManager(this)
-            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Hard, GameType.classic_9x9)
-            bestTimeManager.saveBestTime(0, 0, GameDifficulty.Hard, GameType.classic_6x6)
-            Toast.makeText(this, getString(R.string.hard_reset_success), Toast.LENGTH_SHORT).show()
-        }
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
@@ -29,6 +30,21 @@ class MainActivity : AppCompatActivity() {
         rcView.adapter = GameModesAdapter(this)
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(rcView)
+
+        findViewById<ImageView>(R.id.imgMainSettings).setOnClickListener {
+            val intent: Intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<ImageView>(R.id.imgMainAbout).setOnClickListener {
+            val intent = Intent(this, AboutActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<ImageView>(R.id.imgMainStats).setOnClickListener {
+            val intent = Intent(this, StatsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initSettings(){
@@ -39,20 +55,5 @@ class MainActivity : AppCompatActivity() {
             2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             3 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-    }
-
-    fun onSettingsClick(view: View){
-        val intent: Intent = Intent(this, SettingsActivity::class.java)
-        startActivity(intent)
-    }
-
-    fun onAboutClick(view: View){
-        val intent = Intent(this, AboutActivity::class.java)
-        startActivity(intent)
-    }
-
-    fun onStatsClick(view: View){
-        val intent = Intent(this, StatsActivity::class.java)
-        startActivity(intent)
     }
 }

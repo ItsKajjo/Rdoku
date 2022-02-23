@@ -25,7 +25,7 @@ class StatsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.setTitle(R.string.stats_title)
 
-        val rcViewBestTimes = findViewById<RecyclerView>(R.id.stats_rc_view_best)
+        val rcViewBestTimes = findViewById<RecyclerView>(R.id.rcviewStatsBestTime)
 
         rcViewBestTimes.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rcViewBestTimes.adapter = StatsGameModesAdapter(this)
@@ -34,10 +34,10 @@ class StatsActivity : AppCompatActivity() {
         val gamesStarted = prefs.getInt("games_started", 0)
         val gamesCompleted = prefs.getInt("games_completed", 0)
 
-        findViewById<TextView>(R.id.stats_text_games_started_value).text = gamesStarted.toString()
-        findViewById<TextView>(R.id.stats_text_games_played_value).text = gamesCompleted.toString()
+        findViewById<TextView>(R.id.textStatsGamesStartedValue).text = gamesStarted.toString()
+        findViewById<TextView>(R.id.textStatsGamesCompletedValue).text = gamesCompleted.toString()
 
-        findViewById<TextView>(R.id.stats_text_comp_rate_value).text  = if(gamesCompleted != 0)
+        findViewById<TextView>(R.id.textStatsCompRateValue).text  = if(gamesCompleted != 0)
             getString(R.string.stats_comp_rate_placeholder, round(gamesCompleted.toFloat() / gamesStarted.toFloat() * 100f).toString())
         else
             "0%"

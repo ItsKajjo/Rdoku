@@ -40,24 +40,23 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/imageViewSettings"
+            android:id="@+id/imgMainSettings"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:onClick="onSettingsClick"
             app:srcCompat="@drawable/ic_settings_24dp" />
 
         <ImageView
+            android:id="@+id/imgMainAbout"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="12dp"
-            app:srcCompat="@drawable/ic_info_24dp"
-            android:onClick="onAboutClick"/>
+            app:srcCompat="@drawable/ic_info_24dp"/>
         <ImageView
+            android:id="@+id/imgMainStats"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="12dp"
-            app:srcCompat="@drawable/ic_stats_24dp"
-            android:onClick="onStatsClick"/>
+            app:srcCompat="@drawable/ic_stats_24dp"/>
     </LinearLayout>
 
 

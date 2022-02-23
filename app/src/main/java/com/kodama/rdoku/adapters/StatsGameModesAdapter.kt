@@ -57,9 +57,9 @@ class StatsGameModesAdapter(val context: Context) : RecyclerView.Adapter<StatsGa
     override fun getItemCount(): Int = gameModesList.size
 
     inner class StatsGameModeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textGameType = itemView.findViewById<TextView>(R.id.stats_card_text_game_type)
-        val bestEasy = itemView.findViewById<TextView>(R.id.stats_card_text_easy_value)
-        val bestModerate = itemView.findViewById<TextView>(R.id.stats_card_text_moderate_value)
-        val bestHard = itemView.findViewById<TextView>(R.id.stats_card_text_hard_value)
+        val textGameType = itemView.findViewById<TextView>(R.id.textCardStatsGameType)
+        val bestEasy = itemView.findViewById<TextView>(R.id.textCardStatsEasyValue)
+        val bestModerate = itemView.findViewById<TextView>(R.id.textCardStatsModerateValue)
+        val bestHard = itemView.findViewById<TextView>(R.id.textCardStatsHardValue)
     }
 }

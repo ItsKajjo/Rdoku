@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <TextView
-            android:id="@+id/stats_card_text_game_type"
+            android:id="@+id/textCardStatsGameType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/stats_card_text_easy"
+                android:id="@+id/textCardStatsEasy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -43,7 +43,7 @@
                 android:text="@string/difficulty_easy" />
 
             <TextView
-                android:id="@+id/stats_card_text_easy_value"
+                android:id="@+id/textCardStatsEasyValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -54,14 +54,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/divider_line_color"
-                android:layout_below="@id/stats_card_text_easy" />
+                android:layout_below="@id/textCardStatsEasy" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/stats_card_text_moderate"
+                android:id="@+id/textCardStatsModerate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -69,7 +69,7 @@
                 style="@style/statsItemsTitle"
                 android:text="@string/difficulty_moderate"/>
             <TextView
-                android:id="@+id/stats_card_text_moderate_value"
+                android:id="@+id/textCardStatsModerateValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -80,14 +80,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/divider_line_color"
-                android:layout_below="@id/stats_card_text_moderate" />
+                android:layout_below="@id/textCardStatsModerate" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/stats_card_text_hard"
+                android:id="@+id/textCardStatsHard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -96,7 +96,7 @@
                 android:layout_alignParentStart="true"/>
 
             <TextView
-                android:id="@+id/stats_card_text_hard_value"
+                android:id="@+id/textCardStatsHardValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

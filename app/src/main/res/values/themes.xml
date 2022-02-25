@@ -31,6 +31,7 @@
         <item name="android:textColor">@color/dark_gray</item>
         <item name="tint">@color/dark_gray</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="actionBarTheme">@style/actionbarCustom</item>
     </style>
 
     <style name="ButtonStyle" parent="Theme.AppCompat.DayNight">
@@ -69,8 +70,13 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textSize">24sp</item>
     </style>
+
     <style name="statsItemsTitle">
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="actionbarCustom" parent="ThemeOverlay.MaterialComponents.ActionBar.Surface" >
+        <item name="android:textColorPrimary">@color/dark_gray</item>
     </style>
 </resources>

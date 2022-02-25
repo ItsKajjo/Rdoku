@@ -30,7 +30,7 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/clouds</item>
         <item name="tint">@color/pensive_gray</item>
-
+        <item name="actionBarTheme">@style/actionbarCustom</item>
     </style>
 
     <style name="ButtonStyle" parent="Theme.AppCompat.DayNight">
@@ -46,7 +46,6 @@
         <item name="fontFamily">@font/comfortaa_bold</item>
     </style>
 
-
     <!-- Style of the Sudoku Board -->
     <style name="SudokuBoard" parent="Theme.AppCompat.DayNight">
         <item name="boardColor">@color/not_really_dark_gray</item>
@@ -55,5 +54,9 @@
         <item name="numberColor">#DFE0E1</item>
         <item name="lockedNumColor">#C3C3C3</item>
         <item name="collisionNumberColor">@color/bright_red</item>
+    </style>
+
+    <style name="actionbarCustom" parent="ThemeOverlay.MaterialComponents.ActionBar.Surface" >
+        <item name="android:textColorPrimary">@color/pensive_gray</item>
     </style>
 </resources>

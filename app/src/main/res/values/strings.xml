@@ -12,6 +12,8 @@
     <string name="btn_play">Play</string>
     <string name="classic_9x9">Classic 9x9</string>
     <string name="classic_6x6">Classic 6x6</string>
+    <string name="classic_9x9_description">Regular sudoku, it can be easy or very hard</string>
+    <string name="classic_6x6_description">Easy and fast, good for warm up</string>
 
     <!-- Sudoku Keyboard buttons-->
     <string name="one" translatable="false">1</string>

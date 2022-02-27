@@ -46,4 +46,6 @@
     <string name="reset_stats_alert_title">Сбросить всю статистику?</string>
     <string name="reset_stats_alert_message">Вся ваша статистика будет сброшена! Вы точно хотите продолжить?</string>
     <string name="stats_best_time_title">Лучшее время</string>
+    <string name="classic_9x9_description">Обычный режим, может быть легким и очень сложным</string>
+    <string name="classic_6x6_description">Легкий и быстрый режим, идеален для разминки</string>
 </resources>

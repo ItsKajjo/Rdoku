@@ -14,8 +14,8 @@ import com.kodama.rdoku.model.GameType
 
 class StatsGameModesAdapter(val context: Context) : RecyclerView.Adapter<StatsGameModesAdapter.StatsGameModeViewHolder>() {
     private val gameModesList: List<GameMode> = listOf(
-        GameMode(context.getString(R.string.classic_9x9), GameType.classic_9x9, R.drawable.ic_classic_9x9),
-        GameMode(context.getString(R.string.classic_6x6), GameType.classic_6x6, R.drawable.ic_classic_6x6)
+        GameMode(context.getString(R.string.classic_9x9), GameType.classic_9x9, context.getString(R.string.classic_9x9_description), R.drawable.ic_classic_9x9),
+        GameMode(context.getString(R.string.classic_6x6), GameType.classic_6x6, context.getString(R.string.classic_6x6_description), R.drawable.ic_classic_6x6)
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatsGameModeViewHolder {

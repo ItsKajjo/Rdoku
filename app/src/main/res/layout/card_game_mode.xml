@@ -20,31 +20,47 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/linearLayoutCardTop"
+            <!-- top -->
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="16dp"
+                android:paddingBottom="24dp">
+
                 <TextView
                     android:id="@+id/tvModeTitle"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:text="Классический 9x9"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:fontFamily="@font/montserrat" />
+
+                <TextView
+                    android:id="@+id/cardModesTextDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvModeTitle"
+                    android:layout_marginTop="6dp"
                     android:fontFamily="@font/montserrat"
-                    android:layout_weight="1"/>
+                    android:textSize="18sp"
+                    android:layout_toStartOf="@id/ivGameMode"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="12dp"/>
 
                 <ImageView
                     android:id="@+id/ivGameMode"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="18dp"
-                    app:tint="@color/card_tint"/>
-            </LinearLayout>
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    app:tint="@color/card_tint" />
+            </RelativeLayout>
+
+            <!-- bottom -->
             <RelativeLayout
                 android:id="@+id/linearLayoutCardBottom"
                 android:layout_width="match_parent"
@@ -73,7 +89,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/textColorPrimary"
                     android:textSize="16sp"
-                    android:drawableRight="@drawable/ic_chevron_right_24dp"
+                    android:drawableEnd="@drawable/ic_chevron_right_24dp"
                     android:drawableTint="@color/card_tint"/>
             </RelativeLayout>
         </LinearLayout>

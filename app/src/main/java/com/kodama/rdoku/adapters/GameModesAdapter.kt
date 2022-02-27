@@ -18,8 +18,8 @@ import java.io.Serializable
 class GameModesAdapter(val context: Context) : RecyclerView.Adapter<GameModesAdapter.GameModesViewHolder>() {
 
     private val gameModesList: List<GameMode> = listOf(
-        GameMode(context.getString(R.string.classic_9x9), GameType.classic_9x9, R.drawable.ic_classic_9x9),
-        GameMode(context.getString(R.string.classic_6x6), GameType.classic_6x6, R.drawable.ic_classic_6x6)
+        GameMode(context.getString(R.string.classic_9x9), GameType.classic_9x9, context.getString(R.string.classic_9x9_description), R.drawable.ic_classic_9x9),
+        GameMode(context.getString(R.string.classic_6x6), GameType.classic_6x6, context.getString(R.string.classic_6x6_description), R.drawable.ic_classic_6x6)
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameModesViewHolder {
@@ -31,8 +31,7 @@ class GameModesAdapter(val context: Context) : RecyclerView.Adapter<GameModesAda
     override fun onBindViewHolder(holder: GameModesAdapter.GameModesViewHolder, position: Int) {
         holder.title.text = gameModesList[position].title
         holder.image.setImageResource(gameModesList[position].image)
-
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        holder.description.text = gameModesList[position].description
 
         holder.btnPlay.setOnClickListener {
             val intent = Intent(context, GameActivity::class.java)
@@ -55,6 +54,8 @@ class GameModesAdapter(val context: Context) : RecyclerView.Adapter<GameModesAda
     inner class GameModesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val title: TextView = itemView.findViewById(R.id.tvModeTitle)
         val image: ImageView = itemView.findViewById(R.id.ivGameMode)
+        val description: TextView = itemView.findViewById(R.id.cardModesTextDescription)
+
         val difficultySpinner: Spinner = itemView.findViewById(R.id.spinnerGameDifficulty)
         val btnPlay: Button = itemView.findViewById(R.id.btnCardPlay)
     }

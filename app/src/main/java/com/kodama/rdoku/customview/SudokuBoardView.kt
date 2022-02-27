@@ -206,13 +206,13 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
 
     private fun setThickLine(){
         boardColorPaint.style = Paint.Style.STROKE
-        boardColorPaint.strokeWidth = (gridSize + (gridSize / 2)).toFloat()
+        boardColorPaint.strokeWidth = 14f
         boardColorPaint.color = boardColor
     }
 
     private fun setThinLine(){
         boardColorPaint.style = Paint.Style.STROKE
-        boardColorPaint.strokeWidth = ((gridSize + (gridSize / 2) + 2) / 2).toFloat()
+        boardColorPaint.strokeWidth = 6f
         boardColorPaint.color = boardColor
     }
 }

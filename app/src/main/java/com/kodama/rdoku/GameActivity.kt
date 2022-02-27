@@ -155,55 +155,65 @@ class GameActivity : AppCompatActivity(){
     private fun showCompleteActivity(cmTimer: Chronometer){
         cmTimer.stop()
 
-        // get minutes and seconds from the timer
-        val seconds = (SystemClock.elapsedRealtime() - cmTimer.base) / 1000 % 60
-        val minutes = (SystemClock.elapsedRealtime() - cmTimer.base) / 1000 / 60 % 60
 
-        val bestTimeManager = BestTimeManager(this)
+        val completeActivityIntent = Intent(this, CompleteActivity::class.java)
 
-        var bestTime = bestTimeManager.getBestTime(gameDifficulty, gameType ?: GameType.classic_9x9)
-        var bestSeconds = bestTime.first
-        var bestMinutes = bestTime.second
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val isTimerEnabled = prefs.getBoolean("enable_timer", true)
 
-        var isNewBestTime = false
-        var isFirstBestTime = false
+        // save best time only if timer was enabled
+        if(isTimerEnabled){
 
-        if(bestMinutes == 0L && bestSeconds == 0L){
-            isFirstBestTime = true
+            // get minutes and seconds from the timer
+            val seconds = (SystemClock.elapsedRealtime() - cmTimer.base) / 1000 % 60
+            val minutes = (SystemClock.elapsedRealtime() - cmTimer.base) / 1000 / 60 % 60
+
+            val bestTimeManager = BestTimeManager(this)
+
+            var bestTime = bestTimeManager.getBestTime(gameDifficulty, gameType ?: GameType.classic_9x9)
+            var bestSeconds = bestTime.first
+            var bestMinutes = bestTime.second
+
+            var isNewBestTime = false
+            var isFirstBestTime = false
+
+            if(bestMinutes == 0L && bestSeconds == 0L){
+                isFirstBestTime = true
+            }
+
+            var prevBestSeconds = 0L
+            var prevBestMinutes = 0L
+            if(minutes <= bestMinutes && seconds < bestSeconds || bestMinutes == 0L && bestSeconds == 0L){
+                prevBestSeconds = bestSeconds
+                prevBestMinutes = bestMinutes
+
+                bestTimeManager.saveBestTime(seconds, minutes, gameDifficulty, gameType ?: GameType.classic_9x9)
+                isNewBestTime = true
+            }
+
+            bestTime = bestTimeManager.getBestTime(gameDifficulty,gameType ?: GameType.classic_9x9)
+
+            bestSeconds = bestTime.first
+            bestMinutes = bestTime.second
+
+            completeActivityIntent.putExtra("time_seconds", seconds)
+            completeActivityIntent.putExtra("time_minutes", minutes)
+            completeActivityIntent.putExtra("best_time_seconds", bestSeconds)
+            completeActivityIntent.putExtra("best_time_minutes", bestMinutes)
+
+            completeActivityIntent.putExtra("prev_best_seconds", prevBestSeconds)
+            completeActivityIntent.putExtra("prev_best_minutes", prevBestMinutes)
+
+            completeActivityIntent.putExtra("new_best_time", isNewBestTime)
+            completeActivityIntent.putExtra("first_best_time", isFirstBestTime)
         }
 
-        var prevBestSeconds = 0L
-        var prevBestMinutes = 0L
-        if(minutes <= bestMinutes && seconds < bestSeconds || bestMinutes == 0L && bestSeconds == 0L){
-            prevBestSeconds = bestSeconds
-            prevBestMinutes = bestMinutes
+        completeActivityIntent.putExtra("game_difficulty", gameDifficulty as Serializable)
+        completeActivityIntent.putExtra("game_type", gameType as Serializable)
 
-            bestTimeManager.saveBestTime(seconds, minutes, gameDifficulty, gameType ?: GameType.classic_9x9)
-            isNewBestTime = true
-        }
+        completeActivityIntent.putExtra("is_timer_enabled", isTimerEnabled)
 
-        bestTime = bestTimeManager.getBestTime(gameDifficulty,gameType ?: GameType.classic_9x9)
-
-        bestSeconds = bestTime.first
-        bestMinutes = bestTime.second
-
-
-        val intent = Intent(this, CompleteActivity::class.java)
-
-        intent.putExtra("time_seconds", seconds)
-        intent.putExtra("time_minutes", minutes)
-        intent.putExtra("best_time_seconds", bestSeconds)
-        intent.putExtra("best_time_minutes", bestMinutes)
-
-        intent.putExtra("prev_best_seconds", prevBestSeconds)
-        intent.putExtra("prev_best_minutes", prevBestMinutes)
-
-        intent.putExtra("new_best_time", isNewBestTime)
-        intent.putExtra("first_best_time", isFirstBestTime)
-
-        intent.putExtra("game_difficulty", gameDifficulty as Serializable)
-        intent.putExtra("game_type", gameType as Serializable)
-        startActivity(intent)
+        startActivity(completeActivityIntent)
     }
 
     private fun showAlertDialogGiveUp(){

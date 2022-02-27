@@ -3,6 +3,7 @@ package com.kodama.rdoku
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import com.kodama.rdoku.model.GameDifficulty
@@ -57,60 +58,75 @@ class CompleteActivity : AppCompatActivity() {
                 GameType.classic_6x6 -> getString(R.string.classic_6x6)
             }
 
-            // time to complete
-            val timeMinutes = extras.getLong("time_minutes", 0L).toString()
-            val timeSeconds = extras.getLong("time_seconds", 0L).toString()
+            val tvCompleteTime = findViewById<TextView>(R.id.tvCompleteTime)
+            val tvCompleteBest = findViewById<TextView>(R.id.tvCompleteBestTime)
+            val tvCompleteCongrats =  findViewById<TextView>(R.id.tvCompleteCongrats)
+            val isTimerEnabled = extras.getBoolean("is_timer_enabled", true)
 
-            findViewById<TextView>(R.id.tvCompleteTime).text = getString(
-                R.string.complete_time,
-                timeMinutes.padStart(2, '0'),
-                timeSeconds.padStart(2, '0')
-            )
+            // show times only if timer was enabled
+            if(isTimerEnabled){
 
-            // best time
-            val bestMinutes = extras.getLong("best_time_minutes", 0L).toString()
-            val bestSeconds = extras.getLong("best_time_seconds", 0L).toString()
+                // time to complete
+                val timeMinutes = extras.getLong("time_minutes", 0L).toString()
+                val timeSeconds = extras.getLong("time_seconds", 0L).toString()
 
-            // previous best time
-            val prevBestMinutes = extras.getLong("prev_best_minutes", 0L).toString()
-            val prevBestSeconds = extras.getLong("prev_best_seconds", 0L).toString()
-
-            findViewById<TextView>(R.id.tvCompleteBestTime).text = getString(
-                R.string.complete_best_time,
-                bestMinutes.padStart(2, '0'),
-                bestSeconds.padStart(2, '0')
-            )
-
-            // congrats text
-            // where args: 1 - difficulty, 2:3 - time to complete, 4:5 - best time
-            if (extras.getBoolean("new_best_time", false)) {
-
-                findViewById<TextView>(R.id.tvCompleteCongrats).text = getString(
-                    R.string.complete_congrats_faster,
-                    difficultyText.lowercase(),
+                tvCompleteTime.text = getString(
+                    R.string.complete_time,
                     timeMinutes.padStart(2, '0'),
-                    timeSeconds.padStart(2, '0'),
-                    prevBestMinutes.padStart(2, '0'),
-                    prevBestSeconds.padStart(2, '0')
+                    timeSeconds.padStart(2, '0')
                 )
-            } else {
-                findViewById<TextView>(R.id.tvCompleteCongrats).text = getString(
-                    R.string.complete_congrats_slower,
-                    difficultyText.lowercase(),
-                    timeMinutes.padStart(2, '0'),
-                    timeSeconds.padStart(2, '0'),
+
+                // best time
+                val bestMinutes = extras.getLong("best_time_minutes", 0L).toString()
+                val bestSeconds = extras.getLong("best_time_seconds", 0L).toString()
+
+                // previous best time
+                val prevBestMinutes = extras.getLong("prev_best_minutes", 0L).toString()
+                val prevBestSeconds = extras.getLong("prev_best_seconds", 0L).toString()
+
+                tvCompleteBest.text = getString(
+                    R.string.complete_best_time,
                     bestMinutes.padStart(2, '0'),
                     bestSeconds.padStart(2, '0')
                 )
-            }
 
-            if(extras.getBoolean("first_best_time", false)){
-                findViewById<TextView>(R.id.tvCompleteCongrats).text = getString(
-                    R.string.complete_congrats_first,
-                    difficultyText.lowercase(),
-                    timeMinutes.padStart(2, '0'),
-                    timeSeconds.padStart(2, '0'),
-                )
+                // congrats text
+                // where args: 1 - difficulty, 2:3 - time to complete, 4:5 - best time
+                if (extras.getBoolean("new_best_time", false)) {
+
+                    tvCompleteCongrats.text = getString(
+                        R.string.complete_congrats_faster,
+                        difficultyText.lowercase(),
+                        timeMinutes.padStart(2, '0'),
+                        timeSeconds.padStart(2, '0'),
+                        prevBestMinutes.padStart(2, '0'),
+                        prevBestSeconds.padStart(2, '0')
+                    )
+                } else {
+                    tvCompleteCongrats.text = getString(
+                        R.string.complete_congrats_slower,
+                        difficultyText.lowercase(),
+                        timeMinutes.padStart(2, '0'),
+                        timeSeconds.padStart(2, '0'),
+                        bestMinutes.padStart(2, '0'),
+                        bestSeconds.padStart(2, '0')
+                    )
+                }
+
+                if(extras.getBoolean("first_best_time", false)){
+                    tvCompleteCongrats.text = getString(
+                        R.string.complete_congrats_first,
+                        difficultyText.lowercase(),
+                        timeMinutes.padStart(2, '0'),
+                        timeSeconds.padStart(2, '0'),
+                    )
+                }
+            }
+            else{
+                tvCompleteBest.visibility = View.GONE
+                tvCompleteTime.visibility = View.GONE
+
+                tvCompleteCongrats.text = getString(R.string.complete_congrats_no_timer, difficultyText.lowercase())
             }
         }
     }

@@ -39,6 +39,7 @@
     <string name="complete_congrats_faster">Congratulations 🎉 You\'ve completed %1$s sudoku only for %2$s:%3$s! It\'s even faster than your best - %4$s:%5$s 🔥</string>
     <string name="complete_congrats_slower">Congratulations 🎉 You\'ve completed %1$s sudoku only for %2$s:%3$s!  It\'s not faster than your best  - %4$s:%5$s, but still not bad ❤️</string>
     <string name="complete_congrats_first">Congratulations 🎉\nYou\'ve completed %1$s sudoku only for %2$s:%3$s!  It\'s was your first time 😍</string>
+    <string name="complete_congrats_no_timer">Congratulations 🎉\nYou\'ve completed %1$s sudoku!</string>
     <string name="complete_difficulty">Difficulty - %1$s</string>
     <string name="complete_time">Time - %1$s:%2$s</string>
     <string name="complete_best_time">Best - %1$s:%2$s</string>

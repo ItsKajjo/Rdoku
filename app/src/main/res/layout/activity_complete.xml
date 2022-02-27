@@ -45,52 +45,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCompleteCongrats" />
 
-    <TextView
-        android:id="@+id/tvCompleteGameType"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/montserrat"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCompleteDetailedHeader" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCompleteDetailedHeader"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvCompleteDifficulty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/complete_difficulty"
-        android:textSize="18sp"
-        android:layout_marginTop="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCompleteGameType" />
+        <TextView
+            android:id="@+id/tvCompleteGameType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat"
+            android:textSize="18sp"
+            android:layout_gravity="center"/>
 
-    <TextView
-        android:id="@+id/tvCompleteTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/complete_time"
-        android:textSize="18sp"
-        android:layout_marginTop="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCompleteDifficulty" />
+        <TextView
+            android:id="@+id/tvCompleteDifficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/complete_difficulty"
+            android:textSize="18sp"
+            android:layout_marginTop="6dp"
+            android:layout_gravity="center" />
 
-    <TextView
-        android:id="@+id/tvCompleteBestTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/complete_best_time"
-        android:textSize="18sp"
-        android:layout_marginTop="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCompleteTime" />
+        <TextView
+            android:id="@+id/tvCompleteTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/complete_time"
+            android:textSize="18sp"
+            android:layout_marginTop="6dp"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/tvCompleteBestTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/complete_best_time"
+            android:textSize="18sp"
+            android:layout_marginTop="6dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/btnCompleteHome"

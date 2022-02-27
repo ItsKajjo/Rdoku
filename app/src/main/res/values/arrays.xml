@@ -1,9 +1,9 @@
 <resources>
     <!-- App Theme Preference -->
     <string-array name="dark_mode_entries">
-        <item>@string/dark_mode_follow_system</item>
-        <item>@string/dark_mode_enable_dark</item>
-        <item>@string/dark_mode_enable_light</item>
+        <item>@string/app_theme_follow_system</item>
+        <item>@string/app_theme_dark</item>
+        <item>@string/app_theme_light</item>
     </string-array>
     <string-array name="dark_mode_entry_values">
         <item>1</item>

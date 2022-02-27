@@ -10,8 +10,8 @@
 
     <!-- Game Mode Cards -->
     <string name="btn_play">Play</string>
-    <string name="classic_9x9">Classic 9x9 sudoku</string>
-    <string name="classic_6x6">Classic 6x6 sudoku</string>
+    <string name="classic_9x9">Classic 9x9</string>
+    <string name="classic_6x6">Classic 6x6</string>
 
     <!-- Sudoku Keyboard buttons-->
     <string name="one" translatable="false">1</string>
@@ -49,29 +49,20 @@
 
     <!-- Appearance Preferences -->
     <string name="app_theme_title">App theme</string>
-    <string name="dark_mode_follow_system">Follow system</string>
-    <string name="dark_mode_enable_dark">Enable dark mode</string>
-    <string name="dark_mode_enable_light">Enable light mode</string>
+    <string name="app_theme_follow_system">Follow system</string>
+    <string name="app_theme_dark">Dark</string>
+    <string name="app_theme_light">Light</string>
 
     <!-- Gameplay Preferences -->
     <string name="enable_timer_header">Enable timer</string>
     <string name="highlight_identical_numbers_header">Highlight identical numbers</string>
     <string name="highlight_identical_numbers_summary">When you select a cell with a certain digit, the same digits are highlighted on the board</string>
 
-    <!-- Buttons Preferences -->
-    <string name="reset_easy_best">Reset best for easy difficulty</string>
-    <string name="reset_moderate_best">Reset best for moderate difficulty</string>
-    <string name="reset_hard_best">Reset best for hard difficulty</string>
-
-    <string name="easy_reset_success">Best time for easy reset successfully</string>
-    <string name="moderate_reset_success">Best time for moderate reset successfully</string>
-    <string name="hard_reset_success">Best time for hard reset successfully</string>
-
     <!-- About -->
     <string name="game_rules_header">Rules</string>
     <string name="game_rules_text">\t1. Each 3×3 box can only contain each number from 1 to 9 once\n\t2. Each column and row can only contain each number from 1 to 9 once\n\tOnce the puzzle is solved, this means that every row, column, and 3×3 box will contain every number from 1 to 9 exactly once</string>
     <string name="about_header">About</string>
-    <string name="about_text">This is the about text.\nI don\'t know what to write here, so that\'s it…\nBut there is my github</string>
+    <string name="about_text">Open source sudoku.\nWithout cringe. Do emojis count as cringe?\nA lot of nerve cells were spent on the development of this game\nAnyway link to my github is below, no one will read this anyway</string>
     <string name="github_link_developer" translatable="false"><a href="https://github.com/ItsKajjo">GitHub</a></string>
     <string name="app_version_text">Version</string>
 

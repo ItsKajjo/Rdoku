@@ -23,7 +23,8 @@ class GameActivity : AppCompatActivity(){
         setContentView(R.layout.activity_game)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+        //supportActionBar?.setDisplayShowTitleEnabled(true)
+        supportActionBar?.setTitle(R.string.app_name)
 
         val bundle: Bundle? = intent.extras
 

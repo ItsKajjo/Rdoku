@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/sudokuwin"
+        app:srcCompat="@drawable/sudoku_complete"
         app:tint="@android:color/transparent" />
 
     <TextView

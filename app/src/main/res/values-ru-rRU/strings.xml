@@ -48,4 +48,5 @@
     <string name="stats_best_time_title">Лучшее время</string>
     <string name="classic_9x9_description">Обычный режим, может быть легким и очень сложным</string>
     <string name="classic_6x6_description">Легкий и быстрый режим, идеален для разминки</string>
+    <string name="complete_congrats_no_timer">Поздравляем 🎉\nВы завершили судоку уровня %1$s!</string>
 </resources>

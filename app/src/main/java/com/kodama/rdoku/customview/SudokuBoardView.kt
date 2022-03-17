@@ -20,17 +20,18 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
     private var highlightColor = 0
     private var cellSize = 0
     private var lockedNumColor = 0
+    private var numberColor = 0
+    private var mistakeColor: Int = 0
 
     private val boardColorPaint: Paint = Paint()
     private val cellFillColorPaint: Paint = Paint()
     private val highlightColorPaint: Paint = Paint()
     private val numberPaint: Paint = Paint()
 
-    private var numberColor = 0
-    private var collisionNumberColor: Int = 0
     private val numberPaintBounds: Rect = Rect()
 
     private var isIdenticalNumHighlighted = true
+    private var isMistakesHighlighted = true
 
     var gridSize: Int = 9
 
@@ -45,10 +46,11 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
             highlightColor = themeArray.getInt(R.styleable.SudokuBoardView_highlightColor, 0)
             numberColor = themeArray.getInt(R.styleable.SudokuBoardView_numberColor, 0)
             lockedNumColor = themeArray.getInt(R.styleable.SudokuBoardView_lockedNumColor, 0)
-            collisionNumberColor = themeArray.getInt(R.styleable.SudokuBoardView_collisionNumberColor, 0)
+            mistakeColor = themeArray.getInt(R.styleable.SudokuBoardView_mistakeColor, 0)
 
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
             isIdenticalNumHighlighted = prefs.getBoolean("highlight_identical_numbers", true)
+            isMistakesHighlighted = prefs.getBoolean("highlight_mistakes", true)
         }
     }
 
@@ -127,8 +129,8 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
                         numberPaint.color = lockedNumColor
                     }
 
-                    if(SudokuGame.mainBoard[row][col].wrong){
-                        numberPaint.color = collisionNumberColor
+                    if(SudokuGame.mainBoard[row][col].wrong && isMistakesHighlighted){
+                        numberPaint.color = mistakeColor
                     }
 
                     canvas?.drawText(text, (col * cellSize) + ((cellSize - width) / 2f),

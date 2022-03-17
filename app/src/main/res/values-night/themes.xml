@@ -53,7 +53,7 @@
         <item name="cellFillColor">@color/deep_sea_blue</item>
         <item name="numberColor">#DFE0E1</item>
         <item name="lockedNumColor">#C3C3C3</item>
-        <item name="collisionNumberColor">@color/bright_red</item>
+        <item name="mistakeColor">@color/bright_red</item>
     </style>
 
     <style name="actionbarCustom" parent="ThemeOverlay.MaterialComponents.ActionBar.Surface" >

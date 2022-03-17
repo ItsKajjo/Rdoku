@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="game_menu_settings">Настройки</string>
     <string name="game_menu_about">Об игре</string>
     <string name="action_menu_new_game">Новая игра</string>
     <string name="app_theme_title">Тема приложения</string>
@@ -49,4 +48,6 @@
     <string name="classic_9x9_description">Обычный режим, может быть легким и очень сложным</string>
     <string name="classic_6x6_description">Легкий и быстрый режим, идеален для разминки</string>
     <string name="complete_congrats_no_timer">Поздравляем 🎉\nВы завершили судоку уровня %1$s!</string>
+    <string name="highlight_mistakes_header">Показывать ошибки</string>
+    <string name="highlight_mistakes_summary">Числа, которые не совпадают с конечным решением, будут окрашены в красный</string>
 </resources>

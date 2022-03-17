@@ -9,9 +9,6 @@
         android:title="@string/game_menu_about"
         android:icon="@drawable/ic_info_24dp"/>
     <item
-        android:id="@+id/settings_menu"
-        android:title="@string/game_menu_settings"/>
-    <item
         android:id="@+id/solve_menu"
         android:title="@string/solve"/>
 </menu>

@@ -77,11 +77,6 @@ class GameActivity : AppCompatActivity(){
                 startActivity(intent)
                 true
             }
-            R.id.settings_menu ->{
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-                true
-            }
             R.id.solve_menu ->{
                 showAlertDialogGiveUp()
                 true

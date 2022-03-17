@@ -24,5 +24,11 @@
             app:defaultValue="true"
             android:key="highlight_identical_numbers"
             android:summary="@string/highlight_identical_numbers_summary"/>
+
+        <SwitchPreference
+            app:title="@string/highlight_mistakes_header"
+            app:defaultValue="true"
+            android:key="highlight_mistakes"
+            android:summary="@string/highlight_mistakes_summary"/>
     </PreferenceCategory>
 </PreferenceScreen>

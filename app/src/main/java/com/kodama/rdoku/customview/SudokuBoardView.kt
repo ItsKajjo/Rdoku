@@ -9,8 +9,10 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.preference.PreferenceManager
 import com.kodama.rdoku.R
-import com.kodama.rdoku.gamelogic.SudokuGame
-import kotlin.math.ceil
+import com.kodama.rdoku.model.BoardState
+import com.kodama.rdoku.model.SudokuCell
+import kotlin.math.floor
+import kotlin.math.min
 import kotlin.math.sqrt
 
 class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -34,6 +36,11 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
     private var isMistakesHighlighted = true
 
     var gridSize: Int = 9
+    var selectedRow = -1
+    var selectedCol = -1
+
+    private lateinit var board: Array<Array<SudokuCell>>
+    var boardState = BoardState.Incomplete
 
     init {
         if(context != null && attrs != null){
@@ -51,6 +58,8 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
             isIdenticalNumHighlighted = prefs.getBoolean("highlight_identical_numbers", true)
             isMistakesHighlighted = prefs.getBoolean("highlight_mistakes", true)
+
+            themeArray.recycle()
         }
     }
 
@@ -59,7 +68,7 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
 
         val width = MeasureSpec.getSize(widthMeasureSpec)
         val height = MeasureSpec.getSize(heightMeasureSpec)
-        val dimension: Int = Math.min(width, height)
+        val dimension: Int = min(width, height)
 
         cellSize = dimension / gridSize
         setMeasuredDimension(dimension, dimension)
@@ -86,28 +95,32 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
         numberPaint.isAntiAlias = true
         numberPaint.textSize = cellSize.toFloat()
 
-        colorCells(canvas, SudokuGame.selectedRow, SudokuGame.selectedCol)
+        canvas.apply {
+            colorCells(canvas, selectedRow + 1, selectedCol + 1)
 
-        if(isIdenticalNumHighlighted){
-            highlightIdenticalNumbers(canvas)
+            if(isIdenticalNumHighlighted){
+                highlightIdenticalNumbers(canvas)
+            }
+
+            canvas?.drawRect(0f,0f, measuredWidth.toFloat(), measuredHeight.toFloat(), boardColorPaint)
+            drawBoard(canvas)
+            drawText(canvas)
         }
-
-        canvas?.drawRect(0f,0f, measuredWidth.toFloat(), measuredHeight.toFloat(), boardColorPaint)
-        drawBoard(canvas)
-        drawText(canvas)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if(event == null){
+        if(event == null || boardState == BoardState.Complete){
             return false
         }
 
         if(event.action == MotionEvent.ACTION_DOWN){
-            SudokuGame.selectedRow = ceil(event.y / cellSize).toInt()
-            SudokuGame.selectedCol = ceil(event.x / cellSize).toInt()
+            selectedRow = floor(event.y / cellSize).toInt()
+            selectedCol = floor(event.x / cellSize).toInt()
 
             invalidate()
+            callOnClick()
+
             return true
         }
 
@@ -115,21 +128,20 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
     }
 
     private fun drawText(canvas: Canvas?){
-
         for(row: Int in 0 until gridSize){
             for(col: Int in 0 until gridSize){
-                if(SudokuGame.mainBoard[row][col].value != 0){
-                    val text: String = SudokuGame.mainBoard[row][col].value.toString()
+                if(board[row][col].value != 0){
+                    val text: String = board[row][col].value.toString()
 
                     numberPaint.getTextBounds(text, 0, text.length, numberPaintBounds)
                     val width: Float = numberPaint.measureText(text)
                     val height: Float = numberPaintBounds.height().toFloat()
 
-                    if(SudokuGame.mainBoard[row][col].locked){
+                    if(board[row][col].locked){
                         numberPaint.color = lockedNumColor
                     }
 
-                    if(SudokuGame.mainBoard[row][col].wrong && isMistakesHighlighted){
+                    if(board[row][col].wrong && isMistakesHighlighted){
                         numberPaint.color = mistakeColor
                     }
 
@@ -143,8 +155,7 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
     }
 
     private fun colorCells(canvas: Canvas?, row: Int, col: Int){
-        if(canvas != null
-            && SudokuGame.selectedRow != -1 && SudokuGame.selectedCol != -1){
+        if(canvas != null && selectedRow != -1 && selectedCol != -1){
             // Paint column
             canvas.drawRect((col - 1f) * cellSize, 0f,
                 (col * cellSize).toFloat(), (cellSize * gridSize).toFloat(), highlightColorPaint)
@@ -187,17 +198,17 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
     }
 
     private fun highlightIdenticalNumbers(canvas: Canvas?){
-        val row = SudokuGame.selectedRow
-        val col = SudokuGame.selectedCol
+        val row = selectedRow
+        val col = selectedCol
         if(row > 0 && col > 0){
             for(i in 0 until gridSize){
                 for(j in 0 until gridSize){
-                    if(SudokuGame.mainBoard[i][j].value == 0){
+                    if(board[i][j].value == 0){
                         continue
                     }
 
                     // finding identical numbers and highlight them
-                    if(SudokuGame.mainBoard[i][j].value == SudokuGame.mainBoard[row - 1][col - 1].value){
+                    if(board[i][j].value == board[row][col].value){
                         canvas?.drawRect((j * cellSize).toFloat(), (i * cellSize).toFloat(),
                             (j * cellSize + cellSize).toFloat(), (i * cellSize + cellSize).toFloat(), cellFillColorPaint)
                     }
@@ -206,6 +217,43 @@ class SudokuBoardView(context: Context?, attrs: AttributeSet?) : View(context, a
         }
     }
 
+    fun setBoard(board: Array<Array<SudokuCell>>){
+        this.board = board
+        gridSize = board.size
+        invalidate()
+    }
+
+    fun getBoard() : Array<Array<SudokuCell>> = board
+
+    fun setNum(num: Int, row: Int = selectedRow, col: Int = selectedCol){
+        if(row != -1 && col != -1) {
+            if(board[row][col].value == num){
+                board[row][col].value = 0
+            }
+            else{
+                board[row][col].value = num
+            }
+            invalidate()
+        }
+    }
+    fun setNumberWrong(wrong: Boolean, row: Int = selectedRow, col: Int = selectedCol){
+        if(row != -1 && col != -1){
+            board[row][col].wrong = wrong
+            invalidate()
+        }
+    }
+    fun resetBoard(){
+        if(this::board.isInitialized){
+            for(row in 0 until gridSize){
+                for(col in 0 until gridSize){
+                    board[row][col].value = 0
+                    board[row][col].wrong = false
+                    board[row][col].locked= false
+
+                }
+            }
+        }
+    }
     private fun setThickLine(){
         boardColorPaint.style = Paint.Style.STROKE
         boardColorPaint.strokeWidth = 14f

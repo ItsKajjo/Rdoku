@@ -11,11 +11,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.preference.PreferenceManager
 import com.kodama.rdoku.customview.SudokuBoardView
 import com.kodama.rdoku.gamelogic.BestTimeManager
+import com.kodama.rdoku.gamelogic.Solver
 import com.kodama.rdoku.model.GameDifficulty
-import com.kodama.rdoku.gamelogic.SudokuGame
 import com.kodama.rdoku.model.BoardState
 import com.kodama.rdoku.model.GameType
+import com.kodama.rdoku.model.SudokuCell
 import java.io.Serializable
+import kotlin.random.Random
 
 class GameActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +25,6 @@ class GameActivity : AppCompatActivity(){
         setContentView(R.layout.activity_game)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        //supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.setTitle(R.string.app_name)
 
         val bundle: Bundle? = intent.extras
@@ -39,23 +40,20 @@ class GameActivity : AppCompatActivity(){
             else -> 9
         }
 
-
-        sudokuGame = SudokuGame(this, size)
-
-        sudokuBoard = findViewById(R.id.sudokuBoard)
-        sudokuBoard.gridSize = size
+        boardView = findViewById(R.id.sudokuBoard)
+        boardView.gridSize = size
 
         cmTimer = findViewById(R.id.cmTimer)
 
-        startGame()
-
         initPrefs()
+
+        startGame()
     }
 
     lateinit var cmTimer: Chronometer
 
-    private lateinit var sudokuGame: SudokuGame
-    private lateinit var sudokuBoard: SudokuBoardView
+    private lateinit var solvedBoard: Array<Array<SudokuCell>>
+    private lateinit var boardView: SudokuBoardView
     private lateinit var gameDifficulty: GameDifficulty
     private var gameType: GameType? = null
     private var size = 9
@@ -73,8 +71,7 @@ class GameActivity : AppCompatActivity(){
                 true
             }
             R.id.about_menu -> {
-                val intent = Intent(this, AboutActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(this, AboutActivity::class.java))
                 true
             }
             R.id.solve_menu ->{
@@ -106,19 +103,47 @@ class GameActivity : AppCompatActivity(){
             GameDifficulty.Moderate -> tvDifficulty.text = getString(R.string.difficulty_moderate)
             GameDifficulty.Hard -> tvDifficulty.text = getString(R.string.difficulty_hard)
         }
-        sudokuGame.setBoard(gameDifficulty, gameType ?: GameType.classic_9x9)
-
+        setBoard()
+        solveBoard()
         cmTimer.base = SystemClock.elapsedRealtime()
         cmTimer.start()
 
         enableGameKeyboard(true)
-        sudokuBoard.invalidate()
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val editor = prefs.edit()
 
         editor.putInt("games_started", prefs.getInt("games_started", 0) + 1)
         editor.apply()
+    }
+
+    private fun setBoard(){
+        boardView.resetBoard()
+
+        val boards: Array<String> =
+            if(gameType == GameType.classic_9x9){
+                when(gameDifficulty){
+                    GameDifficulty.Easy -> resources.getStringArray(R.array.easyBoards9x9)
+                    GameDifficulty.Moderate -> resources.getStringArray(R.array.moderateBoards9x9)
+                    GameDifficulty.Hard -> resources.getStringArray(R.array.hardBoards9x9)
+                }
+            } else{
+                resources.getStringArray(R.array.easyBoards6x6)
+            }
+
+        val randomBoardString = boards[Random.nextInt(0, boards.size)]
+
+        val randomBoard = Array(size) {Array(size){ SudokuCell(0) }}
+
+        for(i in 0 until size){
+            for(j in 0 until size){
+                randomBoard[i][j].value = randomBoardString[i * size + j].digitToInt()
+                if(randomBoard[i][j].value != 0){
+                    randomBoard[i][j].locked = true
+                }
+            }
+        }
+        boardView.setBoard(randomBoard)
     }
 
     override fun onDestroy() {
@@ -139,12 +164,14 @@ class GameActivity : AppCompatActivity(){
             R.id.btnNine -> 9
             else -> 0
         }
-        sudokuGame.setNumberBoard(number)
+        if(!boardView.getBoard()[boardView.selectedRow][boardView.selectedCol].locked){
+            boardView.setNum(number)
+            boardView.setNumberWrong(!isValidMove(number))
+        }
 
         checkForComplete()
 
         hideFullyUsedNumber()
-        sudokuBoard.invalidate()
     }
 
     private fun showCompleteActivity(cmTimer: Chronometer){
@@ -215,9 +242,8 @@ class GameActivity : AppCompatActivity(){
         val builder = AlertDialog.Builder(this).setTitle(R.string.give_up_alert_title)
             .setMessage(R.string.give_up_alert_text)
             .setPositiveButton(R.string.alert_dialog_yes){ _, _ ->
-                sudokuGame.debugSolve()
+                giveUpSolve()
                 enableGameKeyboard(false)
-                sudokuBoard.invalidate()
             }
             .setNegativeButton(R.string.alert_dialog_no){ dialog, _ ->
                 dialog.dismiss()
@@ -230,7 +256,7 @@ class GameActivity : AppCompatActivity(){
         alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getColor(R.color.alert_dialog_button_text))
     }
 
-    // initializing preferences
+    // init preferences
     private fun initPrefs(){
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
@@ -239,35 +265,52 @@ class GameActivity : AppCompatActivity(){
         }
     }
 
+    // erase button click
     fun onBtnEraseClick(view: View){
-        if(sudokuGame.boardState != BoardState.Complete){
-            sudokuGame.eraseNumber()
-
+        if(boardView.boardState != BoardState.Complete && boardView.selectedRow != -1 && boardView.selectedCol != -1
+            && !boardView.getBoard()[boardView.selectedRow][boardView.selectedCol].locked){
+            boardView.setNum(0)
             hideFullyUsedNumber()
-            sudokuBoard.invalidate()
         }
     }
 
+    // hint button click
     fun onBtnHintClick(view: View){
-        if(sudokuGame.boardState != BoardState.Complete){
-            sudokuGame.useHint()
-
+        if(boardView.boardState != BoardState.Complete){
+            boardView.setNum(solvedBoard[boardView.selectedRow][boardView.selectedCol].value)
+            boardView.setNumberWrong(false)
             hideFullyUsedNumber()
             checkForComplete()
-
-            sudokuBoard.invalidate()
         }
     }
 
+    // checks if sudoku is completed
     private fun checkForComplete(){
-        if(sudokuGame.checkForComplete()){
-            val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-            val editor = prefs.edit()
-            editor.putInt("games_completed", prefs.getInt("games_completed", 0) + 1)
-            editor.apply()
-
-            showCompleteActivity(cmTimer)
+        val board = boardView.getBoard()
+        for(i in 0 until size){
+            for(j in 0 until size){
+                if(board[i][j].value == 0){
+                    return
+                }
+            }
         }
+
+        for(i in 0 until size){
+            for(j in 0 until size){
+                if(board[i][j].value != solvedBoard[i][j].value){
+                    return
+                }
+            }
+        }
+
+        boardView.boardState = BoardState.Complete
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val editor = prefs.edit()
+        editor.putInt("games_completed", prefs.getInt("games_completed", 0) + 1)
+        editor.apply()
+
+        showCompleteActivity(cmTimer)
     }
 
     private fun enableGameKeyboard(isVisible: Boolean){
@@ -287,7 +330,7 @@ class GameActivity : AppCompatActivity(){
         }
     }
 
-    // hiding numbers that have been fully used
+    // hides numbers that have been fully used
     private fun hideFullyUsedNumber(){
         for(i in 1..size){
             val button: Button = when(i){
@@ -302,7 +345,7 @@ class GameActivity : AppCompatActivity(){
                 9 -> findViewById(R.id.btnNine)
                 else -> return
             }
-            if(sudokuGame.fullyUsedNumber(i)){
+            if(isNumberFullyUsed(i)){
                 button.visibility = View.GONE
             }
             else{
@@ -311,5 +354,44 @@ class GameActivity : AppCompatActivity(){
                 }
             }
         }
+    }
+
+    // fills all cells with correct numbers
+    private fun giveUpSolve(){
+        boardView.setBoard(solvedBoard)
+    }
+
+    private fun solveBoard(){
+        val solver = Solver()
+        solvedBoard = solver.solve(boardView.getBoard(), size)
+    }
+
+    private fun isValidMove(number: Int):Boolean{
+        val solver = Solver()
+        return solver.validMove(boardView.selectedRow,
+            boardView.selectedCol,
+            number, boardView.getBoard(), size)
+    }
+
+    private fun isNumberFullyUsed(num: Int):Boolean{
+        if(num == 0){
+            return false
+        }
+
+        var count = 0
+
+        for(i in 0 until size){
+            for(j in 0 until size){
+                if(boardView.getBoard()[i][j].value == num){
+                    count += 1
+                }
+            }
+        }
+
+        if(count != size){
+            return false
+        }
+
+        return true
     }
 }

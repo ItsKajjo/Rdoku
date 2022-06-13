@@ -27,9 +27,7 @@ class Solver {
         for(i in 0 until size){
             for(j in 0 until size){
                 solvedBoard[i][j].value = grid[i][j]
-                if(solvedBoard[i][j].value != 0){
-                    solvedBoard[i][j].locked = true
-                }
+                solvedBoard[i][j].locked = board[i][j].locked
             }
         }
 
@@ -38,7 +36,7 @@ class Solver {
 
     // returns if it possible to set num to given row;col at the given grid
     fun validMove(row: Int, col: Int, num:Int, grid: Array<Array<SudokuCell>>, size: Int):Boolean{
-        var intGrid: Array<Array<Int>> = Array(size) { Array(size) { 0 } }
+        val intGrid: Array<Array<Int>> = Array(size) { Array(size) { 0 } }
 
         for(i in 0 until size){
             for(j in 0 until size){
@@ -87,8 +85,8 @@ class Solver {
         for(i in 0 until 9){
             for(j in 0 until 9){
                 if(grid[i][j] == 0){
-                    row = i;
-                    col = j;
+                    row = i
+                    col = j
 
                     isEmpty = false
                     break
@@ -145,14 +143,13 @@ class Solver {
         }
 
         val boxResult = getBoxColAndRow6x6(r,c)
-        var boxRow = boxResult.first
-        var boxCol = boxResult.second
+        val boxRow = boxResult.first
+        val boxCol = boxResult.second
 
         // check in box
         for (i in boxRow until boxRow + 2) {
             for (j in boxCol until boxCol + 3) {
                 if (puz[i][j] == num && i != r && j != c){
-                    Log.d("VALID", "Found $num in a box at $i;$j")
                     return false
                 }
             }
@@ -169,9 +166,9 @@ class Solver {
         if (c < 3) boxCol = 0
         else if (c in 3..5) boxCol = 3
 
-        if(r >= 4) boxRow = 4
-        else if(r in 2..3) boxRow = 2
-        else boxRow = 0
+        boxRow = if(r >= 4) 4
+        else if(r in 2..3) 2
+        else 0
 
         return Pair(boxRow, boxCol)
     }

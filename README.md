@@ -1,4 +1,4 @@
-# THE PROJECT IS ABANDONED. Check out my similar project [LibreSudoku](https://github.com/kaajjo/Libre-Sudoku) (
+# THE PROJECT IS ABANDONED. Check out my similar project [LibreSudoku](https://github.com/kaajjo/Libre-Sudoku)
 ## Rdoku
 Light sudoku for android, made by noob in kotlin and android studio\
 NOTE: This is my first android project. There are many bad approaches
